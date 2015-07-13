@@ -1,0 +1,24 @@
+Line 20: Class HlpN.HlpNCode of control hlpMelting was not a loaded control class.
+Line 30: Class HlpN.HlpNCode of control hlpMethod was not a loaded control class.
+Line 40: Class HlpN.HlpNCode of control hlpCore was not a loaded control class.
+Line 50: Class HlpN.HlpNCode of control hlpConum was not a loaded control class.
+Line 60: Class HlpN.HlpNCode of control hlpOrdNo was not a loaded control class.
+Line 70: Class HlpN.HlpNCode of control hlpPatternCode was not a loaded control class.
+Line 26: The property name _ExtentX in hlpMelting is invalid.
+Line 27: The property name _ExtentY in hlpMelting is invalid.
+Line 28: The property name NameWidth in hlpMelting is invalid.
+Line 36: The property name _ExtentX in hlpMethod is invalid.
+Line 37: The property name _ExtentY in hlpMethod is invalid.
+Line 38: The property name NameWidth in hlpMethod is invalid.
+Line 46: The property name _ExtentX in hlpCore is invalid.
+Line 47: The property name _ExtentY in hlpCore is invalid.
+Line 48: The property name NameWidth in hlpCore is invalid.
+Line 56: The property name _ExtentX in hlpConum is invalid.
+Line 57: The property name _ExtentY in hlpConum is invalid.
+Line 58: The property name NameWidth in hlpConum is invalid.
+Line 66: The property name _ExtentX in hlpOrdNo is invalid.
+Line 67: The property name _ExtentY in hlpOrdNo is invalid.
+Line 68: The property name NameWidth in hlpOrdNo is invalid.
+Line 76: The property name _ExtentX in hlpPatternCode is invalid.
+Line 77: The property name _ExtentY in hlpPatternCode is invalid.
+Line 78: The property name NameWidth in hlpPatternCode is invalid.

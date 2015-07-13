@@ -1,0 +1,5 @@
+Line 26: Class CommCtrls.NTxtBox of control txtQty was not a loaded control class.
+Line 61: Class CommCtrls.NTxtBox of control txtRtl_Prc was not a loaded control class.
+Line 81: Class CommCtrls.NTxtBox of control txtAmt was not a loaded control class.
+Line 104: Class CommCtrls.ItxtBox of control txtItemName was not a loaded control class.
+Line 126: Class CommCtrls.ItxtBox of control txtItemCode was not a loaded control class.

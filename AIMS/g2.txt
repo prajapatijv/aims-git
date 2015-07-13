@@ -1,0 +1,138 @@
+Public Function SetSPParams(SP() As String, Optional subreportName As String = "") As Boolean
+    Dim rpt
+    Dim k As Integer
+    Dim i As Integer
+
+'On Error GoTo CheckError
+    If subreportName = "" Then
+        Set rpt = CRXReport
+    Else
+        Set rpt = mCol.Item(subreportName)
+    End If
+    
+    On Error Resume Next
+    
+    k = UBound(SP) - LBound(SP)
+    If k >= 1 Then
+        For i = 1 To UBound(SP)
+            With rpt.ParameterFields(i)
+                Select Case .ValueType
+                    Case crNumberField:
+                        If Left(SP(i), 1) = vbNullChar Then
+                            .AddCurrentValue 0
+                        Else
+                            .AddCurrentValue CDbl(SP(i))
+'                            If CInt(SP(i)) = SP(i) Then
+'                                .AddCurrentValue CInt(SP(i))
+'                            Else
+'                                .AddCurrentValue CDbl(SP(i))
+'                            End If
+                        End If
+                    Case crStringField, crDateField, crDateTimeField:
+                            .AddCurrentValue SP(i)
+                    Case crCurrencyField:
+                            .AddCurrentValue CCur(SP(i))
+                    Case crBooleanField:
+                            .AddCurrentValue CBool(SP(i))
+                    
+                End Select
+            End With
+        Next
+    End If
+Exit Function
+CheckError:
+    Err.Raise Err.Number, "ReportManager.SetSPParams", Err.Description
+
+End Function
+
+Public Function SetFormula(FormulaName, FormulaValue, Optional SubRepName As String = "") As Boolean
+    On Error Resume Next
+    Dim rpt
+    If SubRepName = "" Then
+        'rpt = CRXReport
+        Set rpt = CRXReport
+    Else
+      Set rpt = mCol.Item(SubRepName)
+    End If
+    rpt.FormulaFields.GetItemByName(Trim(FormulaName)).Text = FormulaValue
+
+End Function
+
+Public Sub ClearFormulaFormName()
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+' oren   17/05/2006                                                             '
+' there is in most report's FileName formula that can't be translate            '
+'  so we have to set  text to "" ( or to go and delete it from 199 report's...) '
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+Dim i As Integer
+Dim rpt
+Set rpt = CRXReport
+
+ i = rpt.FormulaFields.Count
+  Do While i > 0
+  
+  If LCase(rpt.FormulaFields(i).Name) = "{@filename}" Or _
+     LCase(rpt.FormulaFields(i).Name) = "{@RptName}" Then
+        rpt.FormulaFields(i).Text = ""
+        Exit Do
+  End If
+  i = i - 1
+  
+  Loop
+     
+End Sub
+
+Public Function Export(sfileName As String)
+On Error GoTo CheckError
+    CRXReport.EnableParameterPrompting = False
+    CRXReport.DisplayProgressDialog = False
+    CRXReport.MorePrintEngineErrorMessages = mShowMsg
+    CRXReport.ExportOptions.FormatType = crEFTCrystalReport
+    CRXReport.ExportOptions.DestinationType = crEDTDiskFile
+    CRXReport.ExportOptions.DiskFileName = sfileName
+
+    CRXReport.Export False
+
+Exit Function
+CheckError:
+       Err.Raise Err.Number, "cCrystal::Export", Err.Description
+End Function
+
+Public Function ExportFileType(sfileName As String)
+On Error GoTo CheckError
+    CRXReport.EnableParameterPrompting = False
+    CRXReport.DisplayProgressDialog = False
+    CRXReport.MorePrintEngineErrorMessages = mShowMsg
+    CRXReport.ExportOptions.FormatType = crEFTExactRichText
+    CRXReport.ExportOptions.DestinationType = crEDTDiskFile
+    CRXReport.ExportOptions.DiskFileName = sfileName
+    CRXReport.Export False
+
+Exit Function
+CheckError:
+       Err.Raise Err.Number, "cCrystal::Export", Err.Description
+End Function
+
+Public Function ExportToPrinter(Optional iNumberOfCopies As Integer = 1)
+
+On Error GoTo CheckError
+    CRXReport.EnableParameterPrompting = False
+    CRXReport.MorePrintEngineErrorMessages = False
+    CRXReport.MorePrintEngineErrorMessages = True
+    CRXReport.DisplayProgressDialog = False
+    
+    If iNumberOfCopies < 1 Then Exit Function
+    CRXReport.PrintOut False, iNumberOfCopies
+    
+Exit Function
+CheckError:
+       If Err.Description <> ERROR_DETECTED_BY_DATABASE_DLL Then
+             Err.Raise Err.Number, "cCrystal::ExportToPrinter", Err.Description
+       End If
+        
+End Function
+
+Public Function SetDataSource(DSN As Object)
+    CRXReport.Database.SetDataSource DSN
+    CRXReport.Database.Verify
+End Function

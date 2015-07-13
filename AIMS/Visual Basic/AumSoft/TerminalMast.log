@@ -1,0 +1,5 @@
+Line 88: Class HlpN.HlpNCode of control hlpkeybrd_id was not a loaded control class.
+Line 108: Class CommCtrls.ItxtBox of control txtCode was not a loaded control class.
+Line 128: Class CommCtrls.CtxtBox of control txtName was not a loaded control class.
+Line 150: Class CommCtrls.CtxtBox of control txtShortName was not a loaded control class.
+Line 225: Class HlpN.HlpNCode of control hlpFind was not a loaded control class.

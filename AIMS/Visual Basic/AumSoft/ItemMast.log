@@ -1,0 +1,10 @@
+Line 87: Class CommCtrls.NTxtBox of control txtRtl_Prc was not a loaded control class.
+Line 106: Class CommCtrls.NTxtBox of control txtDisc_Per was not a loaded control class.
+Line 126: Class CommCtrls.NTxtBox of control txtDisc_Amt was not a loaded control class.
+Line 145: Class HlpN.HlpNCode of control hlpCategory_Id was not a loaded control class.
+Line 154: Class HlpN.HlpNCode of control hlpSize_Id was not a loaded control class.
+Line 163: Class HlpN.HlpNCode of control hlpUnit_id was not a loaded control class.
+Line 233: Class CommCtrls.ItxtBox of control txtCode was not a loaded control class.
+Line 253: Class CommCtrls.CtxtBox of control txtName was not a loaded control class.
+Line 275: Class CommCtrls.CtxtBox of control txtShortName was not a loaded control class.
+Line 350: Class HlpN.HlpNCode of control hlpFind was not a loaded control class.

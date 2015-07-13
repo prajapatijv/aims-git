@@ -1,0 +1,13 @@
+Line 99: Class CommCtrls.ItxtBox of control txtVno was not a loaded control class.
+Line 165: Class CommCtrls.mskDat of control mskRec_Dat was not a loaded control class.
+Line 185: Class CommCtrls.CtxtBox of control txtDoc_No was not a loaded control class.
+Line 243: Class CommCtrls.CtxtBox of control txtRemarks was not a loaded control class.
+Line 266: Class CommCtrls.NTxtBox of control txtTotRecQty was not a loaded control class.
+Line 287: Class CommCtrls.NTxtBox of control txtItemTot was not a loaded control class.
+Line 392: Class CommCtrls.CtxtBox of control txtUnit was not a loaded control class.
+Line 413: Class HlpN.HlpNCode of control hlpItem was not a loaded control class.
+Line 423: Class CommCtrls.ItxtBox of control txtSrno was not a loaded control class.
+Line 442: Class CommCtrls.ItxtBox of control txtQty was not a loaded control class.
+Line 461: Class CommCtrls.NTxtBox of control txtRtl_Prc was not a loaded control class.
+Line 481: Class CommCtrls.NTxtBox of control txtAmt was not a loaded control class.
+Line 671: Class HlpN.HlpNCode of control hlpFind was not a loaded control class.

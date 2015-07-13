@@ -1,0 +1,9 @@
+Line 86: Class CommCtrls.ItxtBox of control txtTranId was not a loaded control class.
+Line 114: Class HlpN.HlpNCode of control hlpItem was not a loaded control class.
+Line 123: Class HlpN.HlpNCode of control hlpCategory was not a loaded control class.
+Line 132: Class HlpN.HlpNCode of control hlpSize was not a loaded control class.
+Line 141: Class HlpN.HlpNCode of control hlpUnit was not a loaded control class.
+Line 217: Class HlpN.HlpNCode of control hlpTerminal was not a loaded control class.
+Line 226: Class CommCtrls.mskDat of control mskFdat was not a loaded control class.
+Line 245: Class CommCtrls.mskDat of control msktdat was not a loaded control class.
+Line 264: Class HlpN.HlpNCode of control hlpUser was not a loaded control class.

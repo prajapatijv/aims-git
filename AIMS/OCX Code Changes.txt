@@ -1,0 +1,11 @@
+This code contaions latest updated code and compiled version for Help Control.
+Myhelp.Ocx
+
+EhnanceMents:
+1.	GUI Changes
+2.	Add support for Gujarati font in OCX Grid,
+	Search Controls and Ocx User display controls.
+3.	Added One property and one method to get additional 
+	value from ActiveX.
+4.	Added property to set default search column.
+	

@@ -1,0 +1,222 @@
+[Root]
+Most Recent Package=AIMS SetpUp
+
+
+[Package|AIMS SetpUp|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=E:\AIMS\AIMS_Support\Setup
+
+[Package|AIMS SetpUp|Configure DAO ISAMs]
+Applicable=Yes
+Jet 2.x=Yes
+
+[Package|AIMS SetpUp|Configure DAO ODBC]
+JetWorkspace=Yes
+ODBCDirect=Yes
+
+[Package|AIMS SetpUp|Files Found]
+
+[Package|AIMS SetpUp|Files Released]
+PG32CONV.DLL=
+SSCSDK80.DLL=
+U2FXLS.DLL=
+U2FWORDW.DLL=
+U2FWKS.DLL=
+U2FTEXT.DLL=
+U2FSEPV.DLL=
+U2FRTF.DLL=
+U2FREC.DLL=
+U2FHTML.DLL=
+U2FDIF.DLL=
+U2FCR.DLL=
+U2DMAPI.DLL=
+CRXLAT32.DLL=
+EpsStmApi.dll=
+p2smon.dll=
+
+[Package|AIMS SetpUp|Missing Dependency Information]
+E:\AUM\AumSoft\Ocx\CommCtrls.ocx=
+E:\AUM\AumSoft\Ocx\MyHelp.ocx=
+C:\WINDOWS\system32\MSSTDFMT.DLL=
+C:\Program Files\Microsoft SQL Server\80\Tools\Binn\SQLDMO.dll=
+C:\Program Files\Common Files\System\ado\msado26.tlb=
+C:\Program Files\Seagate Software\Report Designer Component\craxdrt.dll=
+C:\WINDOWS\msagent\agentctl.dll=
+C:\WINDOWS\system32\msvcrt.dll=
+C:\WINDOWS\system32\P2smon.dll=
+E:\AIMS\Components\Ocx\CommCtrls.ocx=
+E:\AIMS\Components\Ocx\MyHelp.ocx=
+E:\AIMS\Visual Basic\Ocx\Help\MyHelp.ocx=
+C:\WINDOWS\system32\EpsStmApi.dll=
+
+[Package|AIMS SetpUp|Out-of-Date Dependency Information]
+C:\WINDOWS\system32\MSRDO20.DLL=
+C:\WINDOWS\system32\comdlg32.ocx=
+C:\WINDOWS\system32\mscomctl.ocx=
+C:\WINDOWS\system32\scrrun.dll=
+C:\WINDOWS\system32\crystl32.ocx=
+
+[Package|AIMS SetpUp|Files Added]
+
+[Package|AIMS SetpUp|Files Removed]
+c:\windows\msagent\agentctl.dll=
+c:\windows\system32\msrepl35.dll=
+c:\windows\system32\vbajet32.dll=
+c:\windows\system32\mfc42.dll=
+c:\program files\microsoft visual studio\vb98\wizards\pdwizard\redist\msvcrt40.dll=
+c:\windows\system32\riched32.dll=
+c:\windows\system32\msvcrt.dll=
+
+[Package|AIMS SetpUp|Files In Project]
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\WINDOWS\system32\oleaut32.dll=Yes
+C:\WINDOWS\system32\olepro32.dll=Yes
+C:\WINDOWS\system32\asycfilt.dll=Yes
+C:\WINDOWS\system32\stdole2.tlb=Yes
+C:\WINDOWS\system32\comcat.dll=Yes
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=Yes
+C:\WINDOWS\system32\MSJET35.DLL=Yes
+C:\WINDOWS\system32\MSJTER35.DLL=Yes
+C:\WINDOWS\system32\MSJINT35.DLL=Yes
+C:\WINDOWS\system32\vbajet32.dll=No
+C:\WINDOWS\system32\MSRD2X35.DLL=Yes
+C:\WINDOWS\system32\MSREPL35.DLL=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=No
+C:\WINDOWS\system32\VB5DB.DLL=Yes
+C:\WINDOWS\system32\scrrun.dll=Yes
+C:\WINDOWS\system32\msvcrt.dll=No
+C:\WINDOWS\system32\Implode.dll=Yes
+C:\Program Files\Common Files\System\ado\msado26.tlb=Yes
+C:\Program Files\Microsoft SQL Server\80\Tools\Binn\SQLDMO.dll=Yes
+C:\WINDOWS\system32\MSHFLXGD.OCX=Yes
+C:\WINDOWS\system32\MSSTDFMT.DLL=Yes
+C:\WINDOWS\system32\TABCTL32.OCX=Yes
+C:\WINDOWS\system32\mscomctl.ocx=Yes
+C:\WINDOWS\system32\comdlg32.ocx=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+C:\WINDOWS\system32\MSRDO20.DLL=Yes
+C:\WINDOWS\system32\RDOCURS.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+E:\AIMS\Components\Ocx\CommCtrls.ocx=Yes
+C:\WINDOWS\system32\crystl32.ocx=Yes
+C:\WINDOWS\system32\crpe32.dll=Yes
+C:\WINDOWS\system32\pg32.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\CO2C40EN.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT20.DLL=Yes
+C:\WINDOWS\system32\p2bbnd.dll=Yes
+C:\WINDOWS\system32\p2bdao.dll=Yes
+C:\WINDOWS\system32\p2ctdao.dll=Yes
+C:\WINDOWS\system32\p2irdao.dll=Yes
+C:\WINDOWS\system32\p2sodbc.dll=Yes
+C:\WINDOWS\system32\u2ddisk.dll=Yes
+E:\AIMS\Visual Basic\AumSoft\AumSoft.exe=Yes
+C:\WINDOWS\system32\EpsStmApi.dll=Yes
+E:\AIMS\Visual Basic\Ocx\Help\MyHelp.ocx=Yes
+
+[Package|AIMS SetpUp|Configure Registry Files]
+Applicable=No
+
+[Package|AIMS SetpUp|Configure Remote Servers]
+Applicable=No
+
+[Package|AIMS SetpUp|Install Locations]
+E:\AUM\AumSoft\hSoft.exe=$(AppPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\stdole2.tlb=$(WinSysPathSysFile)
+C:\WINDOWS\system32\comcat.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\P2smon.dll=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\DAO\dao350.dll=$(MSDAOPath)
+C:\WINDOWS\system32\MSJET35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\MSJTER35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\MSJINT35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\vbajet32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\system32\MSRD2X35.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\MSREPL35.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT40.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\VB5DB.DLL=$(WinSysPath)
+C:\WINDOWS\system32\scrrun.dll=$(WinSysPath)
+C:\WINDOWS\system32\msvcrt.dll=$(AppPath)
+C:\WINDOWS\msagent\agentctl.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Viewers\ActiveXViewer\crviewer.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Report Designer Component\craxdrt.dll=$(WinSysPath)
+C:\Program Files\Seagate Software\Report Designer Component\craxddrt.dll=$(WinSysPath)
+C:\WINDOWS\system32\Implode.dll=$(AppPath)
+C:\WINDOWS\system32\Crpaig80.dll=$(WinSysPath)
+C:\WINDOWS\system32\mfc42.dll=$(WinSysPath)
+C:\Program Files\Common Files\System\ado\msado26.tlb=$(WinSysPath)
+C:\Program Files\Microsoft SQL Server\80\Tools\Binn\SQLDMO.dll=$(AppPath)
+C:\WINDOWS\system32\MSHFLXGD.OCX=$(WinSysPath)
+C:\WINDOWS\system32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINDOWS\system32\TABCTL32.OCX=$(WinSysPath)
+C:\WINDOWS\system32\mscomctl.ocx=$(WinSysPath)
+C:\WINDOWS\system32\comdlg32.ocx=$(WinSysPath)
+E:\AUM\AumSoft\Ocx\MyHelp.ocx=$(WinSysPath)
+E:\AUM\AumSoft\Ocx\CommCtrls.ocx=$(WinSysPath)
+C:\WINDOWS\system32\RICHTX32.OCX=$(WinSysPath)
+C:\WINDOWS\system32\riched32.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+C:\WINDOWS\system32\MSRDO20.DLL=$(WinSysPath)
+C:\WINDOWS\system32\RDOCURS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+E:\AIMS\Visual Basic\AumSoft\hSoft.exe=$(AppPath)
+E:\AIMS\Components\Ocx\MyHelp.ocx=$(WinSysPath)
+E:\AIMS\Components\Ocx\CommCtrls.ocx=$(WinSysPath)
+C:\WINDOWS\system32\crystl32.ocx=$(WinSysPath)
+C:\WINDOWS\system32\crpe32.dll=$(WinSysPath)
+C:\WINDOWS\system32\pg32.dll=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\CO2C40EN.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MSVCRT20.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\p2bbnd.dll=$(WinSysPath)
+C:\WINDOWS\system32\p2bdao.dll=$(WinSysPath)
+C:\WINDOWS\system32\p2ctdao.dll=$(WinSysPath)
+C:\WINDOWS\system32\p2irdao.dll=$(WinSysPath)
+C:\WINDOWS\system32\p2sodbc.dll=$(WinSysPath)
+C:\WINDOWS\system32\u2ddisk.dll=$(WinPath)\Crystal
+E:\AIMS\Visual Basic\AumSoft\AumSoft.exe=$(AppPath)
+C:\WINDOWS\system32\EpsStmApi.dll=$(WinSysPath)
+E:\AIMS\Visual Basic\Ocx\Help\MyHelp.ocx=$(WinSysPath)
+
+[Package|AIMS SetpUp|Configure Shared Files]
+Applicable=Yes
+E:\AUM\AumSoft\hSoft.exe=No
+C:\WINDOWS\system32\msvcrt.dll=No
+C:\WINDOWS\system32\Implode.dll=No
+C:\Program Files\Microsoft SQL Server\80\Tools\Binn\SQLDMO.dll=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+E:\AIMS\Visual Basic\AumSoft\hSoft.exe=No
+E:\AIMS\Visual Basic\AumSoft\AumSoft.exe=No
+
+[Package|AIMS SetpUp|Distribution]
+Type=single
+Size=
+Title=AIMS Inventory Management System
+
+[Package|AIMS SetpUp|AIMS : Inventory Management System]
+Icon1=hSoft.exe
+Title1=AIMS : Inventory Management System
+StartIn1=$(AppPath)
+Key1=Icon1
+
+[Package|AIMS SetpUp|IconGroups]
+Group0=AIMS : Inventory Management System
+PrivateGroup0=True
+Parent0=$(Programs)
+
+[Package|AIMS SetpUp|Package]
+PackageFolder=E:\AIMS\AIMS_Support\Setup
+ProjectFolder=E:\AIMS\Visual Basic\AumSoft
+ServerSideCab=
+File1=E:\AIMS\AIMS_Support\Setup\setup.exe
+File2=E:\AIMS\AIMS_Support\Setup\Setup.Lst
+File3=E:\AIMS\AIMS_Support\Setup\AumSoft.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
