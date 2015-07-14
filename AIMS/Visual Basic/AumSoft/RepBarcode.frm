@@ -1,7 +1,7 @@
 VERSION 5.00
 Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "commctrls.ocx"
 Object = "{86144B5E-6628-49BD-BDDD-F6C4F692705D}#1.2#0"; "MyHelp.ocx"
-Begin VB.Form frmRepStk 
+Begin VB.Form frmRepBarcode 
    BackColor       =   &H00F8D9BC&
    BorderStyle     =   0  'None
    ClientHeight    =   3225
@@ -18,7 +18,6 @@ Begin VB.Form frmRepStk
       Strikethrough   =   0   'False
    EndProperty
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
    MinButton       =   0   'False
@@ -38,7 +37,7 @@ Begin VB.Form frmRepStk
       EndProperty
       Height          =   495
       Left            =   6600
-      TabIndex        =   5
+      TabIndex        =   2
       Top             =   2520
       Width           =   975
    End
@@ -55,7 +54,7 @@ Begin VB.Form frmRepStk
       EndProperty
       Height          =   495
       Left            =   6600
-      TabIndex        =   4
+      TabIndex        =   1
       Top             =   1920
       Width           =   975
    End
@@ -73,17 +72,18 @@ Begin VB.Form frmRepStk
       EndProperty
       Height          =   2655
       Left            =   60
-      TabIndex        =   8
+      TabIndex        =   3
       Top             =   525
       Width           =   6255
-      Begin CommCtrls.mskDat mskFdat 
+      Begin CommCtrls.ItxtBox txtLabelCount 
          Height          =   375
          Left            =   1440
-         TabIndex        =   0
-         Top             =   240
-         Width           =   1095
-         _ExtentX        =   1931
+         TabIndex        =   8
+         Top             =   960
+         Width           =   975
+         _ExtentX        =   1720
          _ExtentY        =   661
+         BackColor       =   -2147483643
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
             Size            =   9.75
@@ -93,41 +93,12 @@ Begin VB.Form frmRepStk
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Mask            =   "##/##/####"
-      End
-      Begin CommCtrls.mskDat msktdat 
-         Height          =   375
-         Left            =   4740
-         TabIndex        =   1
-         Top             =   240
-         Width           =   1095
-         _ExtentX        =   1931
-         _ExtentY        =   661
-         BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
-            Name            =   "MS Sans Serif"
-            Size            =   9.75
-            Charset         =   0
-            Weight          =   400
-            Underline       =   0   'False
-            Italic          =   0   'False
-            Strikethrough   =   0   'False
-         EndProperty
-         Mask            =   "##/##/####"
       End
       Begin HlpN.HlpNCode hlpItem 
          Height          =   375
          Left            =   1440
-         TabIndex        =   3
-         Top             =   1200
-         Width           =   4395
-         _ExtentX        =   7752
-         _ExtentY        =   661
-      End
-      Begin HlpN.HlpNCode hlpCategory 
-         Height          =   375
-         Left            =   1440
-         TabIndex        =   2
-         Top             =   720
+         TabIndex        =   0
+         Top             =   360
          Width           =   4395
          _ExtentX        =   7752
          _ExtentY        =   661
@@ -135,13 +106,13 @@ Begin VB.Form frmRepStk
       Begin VB.Label Label6 
          AutoSize        =   -1  'True
          BackStyle       =   0  'Transparent
-         Caption         =   "Category"
+         Caption         =   "Label Count"
          ForeColor       =   &H00C00000&
          Height          =   240
          Left            =   240
-         TabIndex        =   12
-         Top             =   787
-         Width           =   825
+         TabIndex        =   7
+         Top             =   1020
+         Width           =   1065
       End
       Begin VB.Label Label7 
          AutoSize        =   -1  'True
@@ -150,31 +121,9 @@ Begin VB.Form frmRepStk
          ForeColor       =   &H00C00000&
          Height          =   240
          Left            =   240
-         TabIndex        =   11
-         Top             =   1267
-         Width           =   375
-      End
-      Begin VB.Label lblTodat 
-         AutoSize        =   -1  'True
-         BackStyle       =   0  'Transparent
-         Caption         =   "To"
-         ForeColor       =   &H00C00000&
-         Height          =   240
-         Left            =   4320
-         TabIndex        =   7
-         Top             =   307
-         Width           =   255
-      End
-      Begin VB.Label lblFdat 
-         AutoSize        =   -1  'True
-         BackStyle       =   0  'Transparent
-         Caption         =   "Date"
-         ForeColor       =   &H00C00000&
-         Height          =   240
-         Left            =   240
          TabIndex        =   6
-         Top             =   307
-         Width           =   435
+         Top             =   420
+         Width           =   375
       End
    End
    Begin VB.Shape Shape1 
@@ -188,7 +137,7 @@ Begin VB.Form frmRepStk
    Begin VB.Label lblRptHeadW 
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   "Stock Report"
+      Caption         =   "Barcode Label"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   13.5
@@ -201,9 +150,9 @@ Begin VB.Form frmRepStk
       ForeColor       =   &H00FFFFFF&
       Height          =   360
       Left            =   4530
-      TabIndex        =   10
+      TabIndex        =   5
       Top             =   90
-      Width           =   1800
+      Width           =   2040
    End
    Begin VB.Line Line2 
       BorderColor     =   &H00C00000&
@@ -222,7 +171,7 @@ Begin VB.Form frmRepStk
    Begin VB.Label lblRptHeadB 
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   "Stock Report"
+      Caption         =   "Barcode Label"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   13.5
@@ -235,12 +184,12 @@ Begin VB.Form frmRepStk
       ForeColor       =   &H00C00000&
       Height          =   360
       Left            =   4560
-      TabIndex        =   9
+      TabIndex        =   4
       Top             =   120
-      Width           =   1800
+      Width           =   2040
    End
 End
-Attribute VB_Name = "frmRepStk"
+Attribute VB_Name = "frmRepBarcode"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
@@ -251,9 +200,6 @@ Dim mRpt As String
 
 Private Sub SetTextBoxes()
     
-    mskFdat.Text = GetMonthInitialDat(Date)
-    msktdat.Text = Date
-        
     With hlpItem
         .SetAdoConnStr = gCnnMst
         .TableName = "Items"
@@ -263,17 +209,7 @@ Private Sub SetTextBoxes()
         .DefaultSearchCol = 1
         .SetFontParameters "", gGujaratiFontName, gGujaratiFontName, 2, 12
     End With
-        
-    With hlpCategory
-        .SetAdoConnStr = gCnnMst
-        .TableName = "Categories"
-        .FieldList = "Code,Name,ShortName"
-        .CodeField = "Code"
-        .NameField = "ShortName"
-        .DefaultSearchCol = 1
-        .SetFontParameters "", gGujaratiFontName, gGujaratiFontName, 2, 12
-    End With
-        
+                
     VisibleNoVisibleBtn False
     
     CenterFrmChild Me
@@ -288,7 +224,7 @@ Public Sub cmdPrint_Click()
 On Error GoTo errhndl
 MP vbHourglass
     
-    GenerateStockReport
+    GenerateBarcodeLabels
     
 MP vbDefault
 Exit Sub
@@ -301,7 +237,7 @@ Private Sub Form_Activate()
     SetTextBoxes
 End Sub
 
-Private Sub GenerateStockReport()
+Private Sub GenerateBarcodeLabels()
     
     Dim SpPrm() As String
     Dim formulas() As String
@@ -309,54 +245,25 @@ Private Sub GenerateStockReport()
     
     Select Case LCase(Me.Tag)
     
-        Case LCase("rep_opcl")
+        Case LCase("rep_ItmBarcode")
         
-            ReDim SpPrm(4) As String
+            ReDim SpPrm(2) As String
             ReDim formulas(2) As String
             
-            mRpt = "opcl.rpt"
+            mRpt = "itemBarcode.rpt"
             
-            SpPrm(0) = mskFdat.Text                 'From Date
-            SpPrm(1) = msktdat.Text                 'To Date
-            SpPrm(2) = Val(hlpCategory.CodeText)    'Category
-            SpPrm(3) = Val(hlpItem.CodeText)        'Item
-            SpPrm(4) = 0                            'Preview Enabled : Always Off : Used for Debug
+            SpPrm(0) = Val(hlpItem.CodeText)        'Item
+            SpPrm(1) = 0                            'Label Count
 
             SQL = GenReportSP("stpOPCL", SpPrm)
             gCnnMst.Execute SQL
             
-            formulas(0) = "ReportTitle='Stock Report'"
-            
-        Case LCase("rep_opcl2")
-            ReDim SpPrm(4) As String
-            ReDim formulas(4) As String
-            
-            mRpt = "opcl2.rpt"
-            
-            SpPrm(0) = mskFdat.Text                 'From Date
-            SpPrm(1) = msktdat.Text                 'To Date
-            SpPrm(2) = Val(hlpCategory.CodeText)    'Category
-            SpPrm(3) = Val(hlpItem.CodeText)        'Item
-            SpPrm(4) = 0                            'Preview Enabled : Always Off : Used for Debug
-
-            SQL = GenReportSP("stpOPCL", SpPrm)
-            gCnnMst.Execute SQL
-            
-            formulas(0) = "ReportTitle='Stock Report'"
-            formulas(3) = "FromDate=" + AQ(mskFdat.Text)
-            formulas(4) = "ToDate=" + AQ(msktdat.Text)
-
+            formulas(0) = "ReportTitle='Barcode Labels'"
     End Select
         
     
     '---Get Remarks-------------------------------------------------------------
-    mFilterText = "From Date : " & mskFdat.Text
-    mFilterText = mFilterText & Space(2) & "to : " & msktdat.Text
-    
     '----------------------------------------------------------------------------
-    If Val(hlpCategory.CodeText) > 0 Then
-        mFilterText = mFilterText & Space(5) & " Category : " & hlpCategory.GetFieldValue("name", Val(hlpCategory.CodeText))
-    End If
     
     If Val(hlpItem.CodeText) > 0 Then
         mFilterText = mFilterText & Space(5) & " Item : " & hlpItem.GetFieldValue("name", Val(hlpItem.CodeText))
@@ -368,12 +275,12 @@ Private Sub GenerateStockReport()
     
     With frmCrviewer
         .ViewReport mRpt, SpPrm(), formulas(), 0
-        .Tag = "SalesSummary"
+        .Tag = "BarcodeLabels"
     End With
 
     With frmCrviewer
         .ViewReport mRpt, SpPrm(), formulas(), 0
-        .Tag = "SalesSummary"
+        .Tag = "BarcodeLabels"
         .Show
     End With
 

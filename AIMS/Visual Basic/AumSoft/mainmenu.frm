@@ -1,11 +1,11 @@
 VERSION 5.00
-Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
+Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0"; "mscomctl.ocx"
 Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Begin VB.MDIForm mdiMainMenu 
    BackColor       =   &H00F8D9BC&
    ClientHeight    =   5265
    ClientLeft      =   225
-   ClientTop       =   855
+   ClientTop       =   870
    ClientWidth     =   8745
    Icon            =   "mainmenu.frx":0000
    LinkTopic       =   "MDIForm1"
@@ -100,13 +100,13 @@ Begin VB.MDIForm mdiMainMenu
    End
    Begin MSComctlLib.Toolbar TbrMain 
       Align           =   1  'Align Top
-      Height          =   360
+      Height          =   1020
       Left            =   0
       TabIndex        =   1
       Top             =   0
       Width           =   8745
       _ExtentX        =   15425
-      _ExtentY        =   635
+      _ExtentY        =   1799
       ButtonWidth     =   1931
       ButtonHeight    =   582
       Appearance      =   1
@@ -305,13 +305,13 @@ Begin VB.MDIForm mdiMainMenu
          BeginProperty Panel8 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   6
             Alignment       =   1
-            TextSave        =   "31/12/2010"
+            TextSave        =   "14/07/2015"
          EndProperty
          BeginProperty Panel9 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Object.Width           =   1764
             MinWidth        =   1764
-            TextSave        =   "19:04"
+            TextSave        =   "21:38"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -657,6 +657,12 @@ Dim formulas() As String
         Case LCase("rep_Invsum")
             With frmRepInv
                 .Tag = "rep_Invsum"
+                .Show
+            End With
+        
+        Case LCase("rep_ItmBarcode")
+            With frmRepBarcode
+                .Tag = "rep_ItmBarcode"
                 .Show
             End With
         
@@ -1024,6 +1030,10 @@ MP vbHourglass
     Load mnuReportsArr1(9)
     mnuReportsArr1(9).Caption = "&9. Inventory Summary Report"
     mnuReportsArr1(9).Tag = "rep_Invsum"
+        
+    Load mnuReportsArr1(10)
+    mnuReportsArr1(10).Caption = "&A. Barcode Label Generator"
+    mnuReportsArr1(10).Tag = "rep_ItmBarcode"
         
 '    Load mnuReportsArr1(10)
 '    mnuReportsArr1(10).Caption = "&A. Inventory Detail Report"
