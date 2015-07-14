@@ -16,6 +16,7 @@ Begin VB.Form frmPosGui
       Italic          =   0   'False
       Strikethrough   =   0   'False
    EndProperty
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    LockControls    =   -1  'True
    MaxButton       =   0   'False
@@ -746,7 +747,7 @@ Begin VB.Form frmPosGui
             Appearance      =   0
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "MS Sans Serif"
-               Size            =   9.75
+               Size            =   30
                Charset         =   0
                Weight          =   400
                Underline       =   0   'False
@@ -1254,6 +1255,46 @@ Private Sub cmdItems_Click(Index As Integer)
     Next
     cmdItems(Index).FontBold = True
     
+    txtBarcode.Text = ""
+    txtBarcode.SetFocus
+    
+End Sub
+
+Private Sub GetItemByBarcode(s_barcode As String)
+    Dim rs_BarcodeItm As ADODB.Recordset
+    Dim str_ShortName As String
+    Set rs_BarcodeItm = New ADODB.Recordset
+
+    SQL = "Exec stpBarcodeItem " & s_barcode
+    OpenAdoRst rs_BarcodeItm, SQL, adOpenKeyset, , , gCnnMst
+
+    If rs_BarcodeItm.RecordCount <= 0 Then
+        Exit Sub
+    End If
+
+    'Itm_Code ~ Rtl_Prc ~ Disc_Amt
+    With rs_BarcodeItm
+
+        If Trim$(.Fields("sizename").Value) = "<unknown>" Then
+            'ShortNmae
+            str_ShortName = .Fields("shortname").Value & vbCrLf & Format(.Fields("rtl_prc").Value, "###0.00")
+        Else
+            'Shortname + Size
+            str_ShortName = .Fields("shortname").Value & "(" & Trim$(.Fields("sizename").Value) & ")" & vbCrLf & Format(.Fields("rtl_prc").Value, "###0.00")
+        End If
+    
+        AddItem2Ticket .Fields("itm_code").Value, _
+                        str_ShortName, _
+                        Format(.Fields("rtl_prc").Value, "###0.00"), _
+                        Format(.Fields("disc_amt").Value, "###0.00")
+    End With
+    
+    txtBarcode.Text = ""
+    txtBarcode.SetFocus
+    
+    rs_BarcodeItm.Close
+    Set rs_BarcodeItm = Nothing
+
 End Sub
 
 Private Sub cmdPay_Click()
@@ -1307,6 +1348,13 @@ End Sub
 Private Sub Form_Activate()
     
     cmdCategoryNeviagte(0).Visible = cmdCategory(cmdCategory.Count - 1).Visible
+
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyReturn And Trim$(txtBarcode.Text) <> "" Then
+        GetItemByBarcode (txtBarcode.Text)
+    End If
 
 End Sub
 
@@ -2040,5 +2088,4 @@ Private Sub Command1_Click()
         status = lpdwStatus
     End If
 End Sub
-
 
