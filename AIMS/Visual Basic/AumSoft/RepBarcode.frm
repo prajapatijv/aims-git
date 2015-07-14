@@ -242,47 +242,46 @@ Private Sub GenerateBarcodeLabels()
     Dim SpPrm() As String
     Dim formulas() As String
     Dim mFilterText As String
+    Const CONST_Category As String = "Category"
+    Const CONST_Item As String = "Item"
+    
+    '----------------------------------------------------------------------------
+    ResetReportFilters
     
     Select Case LCase(Me.Tag)
-    
         Case LCase("rep_ItmBarcode")
-        
-            ReDim SpPrm(2) As String
+            SetReportFilters CONST_Item, Val(hlpItem.CodeText), ""
+
+            ReDim SpPrm(0) As String
             ReDim formulas(2) As String
             
-            mRpt = "itemBarcode.rpt"
+            mRpt = "BarcodeLabel.rpt"
             
-            SpPrm(0) = Val(hlpItem.CodeText)        'Item
-            SpPrm(1) = 0                            'Label Count
-
-            SQL = GenReportSP("stpOPCL", SpPrm)
-            gCnnMst.Execute SQL
-            
-            formulas(0) = "ReportTitle='Barcode Labels'"
+            formulas(0) = "ReportTitle='Barcode Label Report'"
     End Select
         
     
     '---Get Remarks-------------------------------------------------------------
-    '----------------------------------------------------------------------------
+    mFilterText = ""
     
-    If Val(hlpItem.CodeText) > 0 Then
-        mFilterText = mFilterText & Space(5) & " Item : " & hlpItem.GetFieldValue("name", Val(hlpItem.CodeText))
-    End If
     '----------------------------------------------------------------------------
     formulas(1) = "ReportFilter=" & "'" & mFilterText & "'"
         
     formulas(2) = "GenAt=" & "'" & ReportGenAt & "'"
     
-    With frmCrviewer
-        .ViewReport mRpt, SpPrm(), formulas(), 0
-        .Tag = "BarcodeLabels"
-    End With
+    '----------------------------------------------------------------------------
+    SQL = "Exec rptItemList " & CONST_Category & "," & CONST_Item & ",0"
+    
+    gCnnMst.Execute SQL
 
     With frmCrviewer
         .ViewReport mRpt, SpPrm(), formulas(), 0
-        .Tag = "BarcodeLabels"
+        .Tag = "rep_BarcodeLabel"
         .Show
     End With
+
+    '----------------------------------------------------------------------------
+    ResetReportFilters
 
 End Sub
 

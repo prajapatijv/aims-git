@@ -1,5 +1,6 @@
 VERSION 5.00
 Object = "{0ECD9B60-23AA-11D0-B351-00A0C9055D8E}#6.0#0"; "MSHFLXGD.OCX"
+Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "commctrls.ocx"
 Begin VB.Form frmPosGui 
    BorderStyle     =   0  'None
    ClientHeight    =   11520
@@ -733,24 +734,25 @@ Begin VB.Form frmPosGui
          TabIndex        =   32
          Top             =   7695
          Width           =   7905
-         Begin VB.TextBox txtBarcode 
-            Appearance      =   0  'Flat
-            BackColor       =   &H00DCFBFC&
-            BeginProperty Font 
+         Begin CommCtrls.CtxtBox txtBarcode 
+            Height          =   855
+            Left            =   120
+            TabIndex        =   0
+            Top             =   2280
+            Width           =   7575
+            _ExtentX        =   13361
+            _ExtentY        =   1508
+            Alignment       =   0
+            Appearance      =   0
+            BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "MS Sans Serif"
-               Size            =   30
+               Size            =   9.75
                Charset         =   0
                Weight          =   400
                Underline       =   0   'False
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
-            Height          =   855
-            Left            =   120
-            TabIndex        =   0
-            Text            =   "Barcode"
-            Top             =   2280
-            Width           =   7575
          End
          Begin VB.Label lblChangeAmount 
             Alignment       =   2  'Center

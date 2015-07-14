@@ -43,10 +43,12 @@ Begin
 		,isnull(Categories.Code,0)				as Category_Code
 		,isnull(Categories.shortname,'')		
 			+ '  (' + Convert(Varchar(4),isnull(Categories.Code,0)) + ')' 	as Category_Name
+		,isnull(ItemBarcodes.barcode,'')		as ItemBarcode
 
 	into tmpReportSource
 
-	From Items					
+	From Items
+	Inner join ItemBarcodes		on (ItemBarcodes.itm_code = Items.code)				
 	Left join Sizes				on (Sizes.code 			= Items.size_id)
 	Left join Categories		on (Items.Category_Id	= Categories.Code)
 
