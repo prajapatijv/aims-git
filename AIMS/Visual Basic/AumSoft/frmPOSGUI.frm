@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{0ECD9B60-23AA-11D0-B351-00A0C9055D8E}#6.0#0"; "MSHFLXGD.OCX"
-Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "commctrls.ocx"
+Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "CommCtrls.ocx"
 Begin VB.Form frmPosGui 
    BorderStyle     =   0  'None
    ClientHeight    =   11520
@@ -1261,6 +1261,13 @@ Private Sub cmdItems_Click(Index As Integer)
 End Sub
 
 Private Sub GetItemByBarcode(s_barcode As String)
+    
+    If Len(s_barcode) < 4 Then
+        txtBarcode.Text = ""
+        txtBarcode.SetFocus
+        Exit Sub
+    End If
+    
     Dim rs_BarcodeItm As ADODB.Recordset
     Dim str_ShortName As String
     Set rs_BarcodeItm = New ADODB.Recordset
@@ -1269,6 +1276,9 @@ Private Sub GetItemByBarcode(s_barcode As String)
     OpenAdoRst rs_BarcodeItm, SQL, adOpenKeyset, , , gCnnMst
 
     If rs_BarcodeItm.RecordCount <= 0 Then
+        txtBarcode.Text = ""
+        txtBarcode.SetFocus
+
         Exit Sub
     End If
 

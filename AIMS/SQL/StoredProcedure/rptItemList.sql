@@ -17,7 +17,8 @@ create procedure rptItemList
 (
 	@IncludeCategory		as	varchar(20)	= 'Category',			
 	@IncludeItem			as  varchar(20) = 'Item',
-	@PreviewEnabled			as	tinyint						--Used to view data in Sql server only for debug purpose
+	@PreviewEnabled			as	tinyint,						--Used to view data in Sql server only for debug purpose
+	@RepeatLabelCount		as	tinyint = 0
 )
 As
 Begin
@@ -59,6 +60,16 @@ Begin
 	or		Items.code 			in (Select nVal from tmpReportFilters 
 									where Type = @IncludeItem)
 	
+
+	If (@RepeatLabelCount > 0)
+	Begin
+		Insert into tmpReportSource
+		select tmpReportSource.* 
+		from tmpReportSource
+		inner join tmpReportFilters on tmpReportSource.itm_code = tmpReportFilters.nVal
+
+		--Delete top 1 from tmpReportSource
+	End
 
 	--Used to view data in Sql server only for debug purpose
 	If (@PreviewEnabled = 1)

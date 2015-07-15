@@ -1,5 +1,5 @@
 VERSION 5.00
-Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "commctrls.ocx"
+Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "CommCtrls.ocx"
 Object = "{86144B5E-6628-49BD-BDDD-F6C4F692705D}#1.2#0"; "MyHelp.ocx"
 Begin VB.Form frmRepBarcode 
    BackColor       =   &H00F8D9BC&
@@ -37,7 +37,7 @@ Begin VB.Form frmRepBarcode
       EndProperty
       Height          =   495
       Left            =   6600
-      TabIndex        =   2
+      TabIndex        =   3
       Top             =   2520
       Width           =   975
    End
@@ -54,7 +54,7 @@ Begin VB.Form frmRepBarcode
       EndProperty
       Height          =   495
       Left            =   6600
-      TabIndex        =   1
+      TabIndex        =   2
       Top             =   1920
       Width           =   975
    End
@@ -72,13 +72,13 @@ Begin VB.Form frmRepBarcode
       EndProperty
       Height          =   2655
       Left            =   60
-      TabIndex        =   3
+      TabIndex        =   4
       Top             =   525
       Width           =   6255
       Begin CommCtrls.ItxtBox txtLabelCount 
          Height          =   375
          Left            =   1440
-         TabIndex        =   8
+         TabIndex        =   1
          Top             =   960
          Width           =   975
          _ExtentX        =   1720
@@ -110,7 +110,7 @@ Begin VB.Form frmRepBarcode
          ForeColor       =   &H00C00000&
          Height          =   240
          Left            =   240
-         TabIndex        =   7
+         TabIndex        =   8
          Top             =   1020
          Width           =   1065
       End
@@ -121,7 +121,7 @@ Begin VB.Form frmRepBarcode
          ForeColor       =   &H00C00000&
          Height          =   240
          Left            =   240
-         TabIndex        =   6
+         TabIndex        =   7
          Top             =   420
          Width           =   375
       End
@@ -150,7 +150,7 @@ Begin VB.Form frmRepBarcode
       ForeColor       =   &H00FFFFFF&
       Height          =   360
       Left            =   4530
-      TabIndex        =   5
+      TabIndex        =   6
       Top             =   90
       Width           =   2040
    End
@@ -184,7 +184,7 @@ Begin VB.Form frmRepBarcode
       ForeColor       =   &H00C00000&
       Height          =   360
       Left            =   4560
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   120
       Width           =   2040
    End
@@ -250,14 +250,17 @@ Private Sub GenerateBarcodeLabels()
     
     Select Case LCase(Me.Tag)
         Case LCase("rep_ItmBarcode")
-            SetReportFilters CONST_Item, Val(hlpItem.CodeText), ""
+            Dim intLoop As Integer
+            For intLoop = 1 To Int(txtLabelCount.Text) - 1
+                SetReportFilters CONST_Item, Val(hlpItem.CodeText), ""
+            Next intLoop
 
             ReDim SpPrm(0) As String
-            ReDim formulas(2) As String
+            ReDim formulas(0) As String
             
             mRpt = "BarcodeLabel.rpt"
             
-            formulas(0) = "ReportTitle='Barcode Label Report'"
+            'formulas(0) = "ReportTitle='Barcode Label Report'"
     End Select
         
     
@@ -265,12 +268,11 @@ Private Sub GenerateBarcodeLabels()
     mFilterText = ""
     
     '----------------------------------------------------------------------------
-    formulas(1) = "ReportFilter=" & "'" & mFilterText & "'"
-        
-    formulas(2) = "GenAt=" & "'" & ReportGenAt & "'"
+    'formulas(1) = "ReportFilter=" & "'" & mFilterText & "'"
+    'formulas(2) = "GenAt=" & "'" & ReportGenAt & "'"
     
     '----------------------------------------------------------------------------
-    SQL = "Exec rptItemList " & CONST_Category & "," & CONST_Item & ",0"
+    SQL = "Exec rptItemList " & CONST_Category & "," & CONST_Item & ",0," & txtLabelCount.Text
     
     gCnnMst.Execute SQL
 
