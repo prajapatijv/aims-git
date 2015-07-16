@@ -745,6 +745,7 @@ Begin VB.Form frmPosGui
             _ExtentY        =   1508
             Alignment       =   0
             Appearance      =   0
+            MaxLength       =   7
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
                Name            =   "MS Sans Serif"
                Size            =   30
@@ -2099,3 +2100,6 @@ Private Sub Command1_Click()
     End If
 End Sub
 
+Private Sub txtBarcode_LostFocus()
+    cmdPay.SetFocus
+End Sub
