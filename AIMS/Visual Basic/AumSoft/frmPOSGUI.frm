@@ -743,7 +743,6 @@ Begin VB.Form frmPosGui
             Width           =   7575
             _ExtentX        =   13361
             _ExtentY        =   1508
-            Alignment       =   0
             Appearance      =   0
             MaxLength       =   7
             BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -1363,7 +1362,9 @@ Private Sub Form_Activate()
 End Sub
 
 Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
-    If KeyCode = vbKeyReturn And Trim$(txtBarcode.Text) <> "" Then
+    If Shift = 2 And KeyCode = vbKeyReturn Then
+        cmdPay_Click
+    ElseIf KeyCode = vbKeyReturn And Trim$(txtBarcode.Text) <> "" Then
         GetItemByBarcode (txtBarcode.Text)
     End If
 
@@ -2100,6 +2101,3 @@ Private Sub Command1_Click()
     End If
 End Sub
 
-Private Sub txtBarcode_LostFocus()
-    cmdPay.SetFocus
-End Sub
