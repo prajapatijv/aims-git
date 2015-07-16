@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
-Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "commctrls.ocx"
+Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "CommCtrls.ocx"
 Object = "{86144B5E-6628-49BD-BDDD-F6C4F692705D}#1.2#0"; "MyHelp.ocx"
 Begin VB.Form frmItemMast 
    BorderStyle     =   1  'Fixed Single
@@ -433,6 +433,7 @@ MP vbHourglass
     ClearScreen
     EnableDisable True
     txtCode.Text = GetMaxCode(mTblMst, True, "Code", gCnnMst)
+    txtBarcodeGenerated.Text = "0" + txtCode.Text
     chkActv_Fg.Value = 1
     SetFocusTo txtName
     
@@ -750,6 +751,8 @@ Private Sub SaveInTmp()
 On Error GoTo errhndl
 MP vbHourglass
         
+    gCnnMst.BeginTrans
+        
     If LCase(lblMode.Caption) = "edit" Then
         SQL = "Delete from " & GetDbTable(mTblMst, gMdbMst)
         SQL = SQL & " Where 1=1"
@@ -807,11 +810,29 @@ MP vbHourglass
     
     gCnnMst.Execute SQL
     
+    ''Save Item Barcode
+    If LCase(lblMode.Caption) = "add" Then
+        SQL = "Insert into ItemBarcodes ("
+        SQL = SQL & "itm_code "
+        SQL = SQL & ",barcode "
+    
+        SQL = SQL & " ) Values ("
+    
+        SQL = SQL & Val(txtCode.Text)
+        SQL = SQL & "," & AQ(txtBarcodeGenerated.Text)
+    
+        SQL = SQL & ")"
+    
+        gCnnMst.Execute SQL
+    End If
+    
+    gCnnMst.CommitTrans
     MsgBox "Entry No : " & txtCode.Text & " Saved ", vbInformation
     
 MP vbDefault
 Exit Sub
 errhndl:
+    gCnnMst.RollbackTrans
     ErrMsg
     'Resume Next
 End Sub
