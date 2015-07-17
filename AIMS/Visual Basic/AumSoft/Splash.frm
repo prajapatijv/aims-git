@@ -120,7 +120,7 @@ Begin VB.Form frmSplash
       Alignment       =   2  'Center
       AutoSize        =   -1  'True
       BackStyle       =   0  'Transparent
-      Caption         =   "Released Version:1.0"
+      Caption         =   "Released Version:1.1"
       BeginProperty Font 
          Name            =   "MS Sans Serif"
          Size            =   9.75

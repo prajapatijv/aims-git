@@ -18,7 +18,6 @@ Begin VB.Form frmPosGui
    EndProperty
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   11520
@@ -754,6 +753,17 @@ Begin VB.Form frmPosGui
                Italic          =   0   'False
                Strikethrough   =   0   'False
             EndProperty
+            AllowNull       =   -1  'True
+         End
+         Begin VB.Label lblBarcodeMsg 
+            Alignment       =   1  'Right Justify
+            Caption         =   "Item missing!"
+            ForeColor       =   &H000000FF&
+            Height          =   375
+            Left            =   4320
+            TabIndex        =   56
+            Top             =   1800
+            Width           =   3255
          End
          Begin VB.Label lblChangeAmount 
             Alignment       =   2  'Center
@@ -1243,6 +1253,8 @@ End Sub
 
 Private Sub cmdItems_Click(Index As Integer)
 
+    lblBarcodeMsg.Caption = ""
+    
     AddItem2Ticket SplitItemDetails(cmdItems.Item(Index).Tag, 0), _
                     cmdItems.Item(Index).Caption, _
                     SplitItemDetails(cmdItems.Item(Index).Tag, 1), _
@@ -1255,16 +1267,26 @@ Private Sub cmdItems_Click(Index As Integer)
     Next
     cmdItems(Index).FontBold = True
     
+    SetBarcodeLable (True)
+    
+End Sub
+
+Private Sub SetBarcodeLable(bfound As Boolean)
+    If (bfound) Then
+        lblBarcodeMsg.Caption = "Added!"
+    Else
+        lblBarcodeMsg.Caption = "Item missing!!"
+    End If
+    
     txtBarcode.Text = ""
     txtBarcode.SetFocus
-    
+
 End Sub
 
 Private Sub GetItemByBarcode(s_barcode As String)
     
     If Len(s_barcode) < 4 Then
-        txtBarcode.Text = ""
-        txtBarcode.SetFocus
+        SetBarcodeLable (False)
         Exit Sub
     End If
     
@@ -1276,8 +1298,7 @@ Private Sub GetItemByBarcode(s_barcode As String)
     OpenAdoRst rs_BarcodeItm, SQL, adOpenKeyset, , , gCnnMst
 
     If rs_BarcodeItm.RecordCount <= 0 Then
-        txtBarcode.Text = ""
-        txtBarcode.SetFocus
+        SetBarcodeLable (False)
 
         Exit Sub
     End If
@@ -1299,8 +1320,7 @@ Private Sub GetItemByBarcode(s_barcode As String)
                         Format(.Fields("disc_amt").Value, "###0.00")
     End With
     
-    txtBarcode.Text = ""
-    txtBarcode.SetFocus
+    SetBarcodeLable (True)
     
     rs_BarcodeItm.Close
     Set rs_BarcodeItm = Nothing
@@ -1472,6 +1492,10 @@ Private Sub SetControls()
     Set rs_TicItms = New ADODB.Recordset
     Set rs_ItmsLst = New ADODB.Recordset
     Set rs_ItmCat = New ADODB.Recordset
+
+    ' Set Default Value for Barcode
+    lblBarcodeMsg.Caption = ""
+    txtBarcode.Text = ""
 
     'Set Terminal Id from INT file-----------------------------------
     mTerminalId = gTerminalId
