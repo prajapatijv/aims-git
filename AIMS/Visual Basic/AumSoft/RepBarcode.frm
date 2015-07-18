@@ -37,7 +37,7 @@ Begin VB.Form frmRepBarcode
       EndProperty
       Height          =   495
       Left            =   6600
-      TabIndex        =   3
+      TabIndex        =   5
       Top             =   2520
       Width           =   975
    End
@@ -54,7 +54,7 @@ Begin VB.Form frmRepBarcode
       EndProperty
       Height          =   495
       Left            =   6600
-      TabIndex        =   2
+      TabIndex        =   4
       Top             =   1920
       Width           =   975
    End
@@ -72,9 +72,34 @@ Begin VB.Form frmRepBarcode
       EndProperty
       Height          =   2655
       Left            =   60
-      TabIndex        =   4
+      TabIndex        =   6
       Top             =   525
       Width           =   6255
+      Begin VB.OptionButton optSingleSideLabel 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H00DCFBFC&
+         Caption         =   "Single Side"
+         ForeColor       =   &H00C00000&
+         Height          =   255
+         Left            =   240
+         TabIndex        =   3
+         Top             =   1920
+         Width           =   2175
+      End
+      Begin VB.OptionButton optSideBySideLabel 
+         Alignment       =   1  'Right Justify
+         Appearance      =   0  'Flat
+         BackColor       =   &H00DCFBFC&
+         Caption         =   "Side by Side"
+         ForeColor       =   &H00C00000&
+         Height          =   255
+         Left            =   240
+         TabIndex        =   2
+         Top             =   1560
+         Value           =   -1  'True
+         Width           =   2175
+      End
       Begin CommCtrls.ItxtBox txtLabelCount 
          Height          =   375
          Left            =   1440
@@ -93,6 +118,7 @@ Begin VB.Form frmRepBarcode
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
+         MaxVal          =   1000
       End
       Begin HlpN.HlpNCode hlpItem 
          Height          =   375
@@ -110,7 +136,7 @@ Begin VB.Form frmRepBarcode
          ForeColor       =   &H00C00000&
          Height          =   240
          Left            =   240
-         TabIndex        =   8
+         TabIndex        =   10
          Top             =   1020
          Width           =   1065
       End
@@ -121,7 +147,7 @@ Begin VB.Form frmRepBarcode
          ForeColor       =   &H00C00000&
          Height          =   240
          Left            =   240
-         TabIndex        =   7
+         TabIndex        =   9
          Top             =   420
          Width           =   375
       End
@@ -150,7 +176,7 @@ Begin VB.Form frmRepBarcode
       ForeColor       =   &H00FFFFFF&
       Height          =   360
       Left            =   4530
-      TabIndex        =   6
+      TabIndex        =   8
       Top             =   90
       Width           =   2040
    End
@@ -184,7 +210,7 @@ Begin VB.Form frmRepBarcode
       ForeColor       =   &H00C00000&
       Height          =   360
       Left            =   4560
-      TabIndex        =   5
+      TabIndex        =   7
       Top             =   120
       Width           =   2040
    End
@@ -258,7 +284,13 @@ Private Sub GenerateBarcodeLabels()
             ReDim SpPrm(0) As String
             ReDim formulas(0) As String
             
-            mRpt = "BarcodeLabel.rpt"
+            If optSideBySideLabel.Value = True Then
+                mRpt = "BarcodeLabel_Sbs.rpt"
+            End If
+            
+            If optSingleSideLabel.Value = True Then
+                mRpt = "BarcodeLabel.rpt"
+            End If
             
             'formulas(0) = "ReportTitle='Barcode Label Report'"
     End Select
