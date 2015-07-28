@@ -1161,6 +1161,7 @@ Private Enum enmEntry
     eUpdate = 2
 End Enum
 
+Const PAYMENT_BARCODE = "000000"
 
 Private Sub SetMshTickets()
 
@@ -1275,7 +1276,12 @@ Private Sub SetBarcodeLable(bfound As Boolean)
     If (bfound) Then
         lblBarcodeMsg.Caption = "Added!"
     Else
-        lblBarcodeMsg.Caption = "Item missing!!"
+    
+        If (Trim(txtBarcode.Text) = PAYMENT_BARCODE) Then
+            lblBarcodeMsg.Caption = ""
+        Else
+            lblBarcodeMsg.Caption = "Item missing!!"
+        End If
     End If
     
     txtBarcode.Text = ""
@@ -1287,6 +1293,12 @@ Private Sub GetItemByBarcode(s_barcode As String)
     
     If Len(s_barcode) < 4 Then
         SetBarcodeLable (False)
+        Exit Sub
+    End If
+    
+    If (Trim(s_barcode) = PAYMENT_BARCODE) Then
+        SetBarcodeLable (False)
+        cmdPay_Click
         Exit Sub
     End If
     

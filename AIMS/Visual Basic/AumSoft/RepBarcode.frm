@@ -4,7 +4,7 @@ Object = "{86144B5E-6628-49BD-BDDD-F6C4F692705D}#1.2#0"; "MyHelp.ocx"
 Begin VB.Form frmRepBarcode 
    BackColor       =   &H00F8D9BC&
    BorderStyle     =   0  'None
-   ClientHeight    =   3225
+   ClientHeight    =   3480
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   7770
@@ -21,7 +21,7 @@ Begin VB.Form frmRepBarcode
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
    MinButton       =   0   'False
-   ScaleHeight     =   3225
+   ScaleHeight     =   3480
    ScaleWidth      =   7770
    ShowInTaskbar   =   0   'False
    Begin VB.CommandButton cmdExit 
@@ -37,7 +37,7 @@ Begin VB.Form frmRepBarcode
       EndProperty
       Height          =   495
       Left            =   6600
-      TabIndex        =   5
+      TabIndex        =   6
       Top             =   2520
       Width           =   975
    End
@@ -54,7 +54,7 @@ Begin VB.Form frmRepBarcode
       EndProperty
       Height          =   495
       Left            =   6600
-      TabIndex        =   4
+      TabIndex        =   5
       Top             =   1920
       Width           =   975
    End
@@ -70,11 +70,22 @@ Begin VB.Form frmRepBarcode
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Height          =   2655
+      Height          =   2895
       Left            =   60
-      TabIndex        =   6
+      TabIndex        =   7
       Top             =   525
       Width           =   6255
+      Begin VB.CheckBox chkisPaymentBarcodeLable 
+         Appearance      =   0  'Flat
+         BackColor       =   &H00DCFBFC&
+         Caption         =   "Print Payment Barcode label?"
+         ForeColor       =   &H00C00000&
+         Height          =   240
+         Left            =   240
+         TabIndex        =   0
+         Top             =   240
+         Width           =   5055
+      End
       Begin VB.OptionButton optSingleSideLabel 
          Alignment       =   1  'Right Justify
          Appearance      =   0  'Flat
@@ -83,8 +94,8 @@ Begin VB.Form frmRepBarcode
          ForeColor       =   &H00C00000&
          Height          =   255
          Left            =   240
-         TabIndex        =   3
-         Top             =   1920
+         TabIndex        =   4
+         Top             =   2400
          Width           =   2175
       End
       Begin VB.OptionButton optSideBySideLabel 
@@ -95,16 +106,16 @@ Begin VB.Form frmRepBarcode
          ForeColor       =   &H00C00000&
          Height          =   255
          Left            =   240
-         TabIndex        =   2
-         Top             =   1560
+         TabIndex        =   3
+         Top             =   2040
          Value           =   -1  'True
          Width           =   2175
       End
       Begin CommCtrls.ItxtBox txtLabelCount 
          Height          =   375
          Left            =   1440
-         TabIndex        =   1
-         Top             =   960
+         TabIndex        =   2
+         Top             =   1320
          Width           =   975
          _ExtentX        =   1720
          _ExtentY        =   661
@@ -123,8 +134,8 @@ Begin VB.Form frmRepBarcode
       Begin HlpN.HlpNCode hlpItem 
          Height          =   375
          Left            =   1440
-         TabIndex        =   0
-         Top             =   360
+         TabIndex        =   1
+         Top             =   720
          Width           =   4395
          _ExtentX        =   7752
          _ExtentY        =   661
@@ -136,8 +147,8 @@ Begin VB.Form frmRepBarcode
          ForeColor       =   &H00C00000&
          Height          =   240
          Left            =   240
-         TabIndex        =   10
-         Top             =   1020
+         TabIndex        =   11
+         Top             =   1380
          Width           =   1065
       End
       Begin VB.Label Label7 
@@ -147,8 +158,8 @@ Begin VB.Form frmRepBarcode
          ForeColor       =   &H00C00000&
          Height          =   240
          Left            =   240
-         TabIndex        =   9
-         Top             =   420
+         TabIndex        =   10
+         Top             =   780
          Width           =   375
       End
    End
@@ -176,7 +187,7 @@ Begin VB.Form frmRepBarcode
       ForeColor       =   &H00FFFFFF&
       Height          =   360
       Left            =   4530
-      TabIndex        =   8
+      TabIndex        =   9
       Top             =   90
       Width           =   2040
    End
@@ -210,7 +221,7 @@ Begin VB.Form frmRepBarcode
       ForeColor       =   &H00C00000&
       Height          =   360
       Left            =   4560
-      TabIndex        =   7
+      TabIndex        =   8
       Top             =   120
       Width           =   2040
    End
@@ -250,7 +261,11 @@ Public Sub cmdPrint_Click()
 On Error GoTo errhndl
 MP vbHourglass
     
-    GenerateBarcodeLabels
+    If chkisPaymentBarcodeLable.Value = True Then
+        GeneratePaymentBarcodeLabels
+    Else
+        GenerateBarcodeLabels
+    End If
     
 MP vbDefault
 Exit Sub
@@ -261,6 +276,56 @@ End Sub
 
 Private Sub Form_Activate()
     SetTextBoxes
+End Sub
+
+Private Sub GeneratePaymentBarcodeLabels()
+    Dim SpPrm() As String
+    Dim formulas() As String
+    Dim mFilterText As String
+    Const CONST_Category As String = "Category"
+    Const CONST_Item As String = "Item"
+    
+    '----------------------------------------------------------------------------
+    ResetReportFilters
+    
+    Select Case LCase(Me.Tag)
+        Case LCase("rep_ItmBarcode")
+            SetReportFilters CONST_Item, "000000", ""
+
+            ReDim SpPrm(0) As String
+            ReDim formulas(0) As String
+            
+            If optSideBySideLabel.Value = True Then
+                SetReportFilters CONST_Item, "000000", ""
+                mRpt = "BarcodeLabel_Sbs.rpt"
+            End If
+            
+            If optSingleSideLabel.Value = True Then
+                mRpt = "BarcodeLabel.rpt"
+            End If
+    End Select
+
+    '---Get Remarks-------------------------------------------------------------
+    mFilterText = ""
+    
+    '----------------------------------------------------------------------------
+    'formulas(1) = "ReportFilter=" & "'" & mFilterText & "'"
+    'formulas(2) = "GenAt=" & "'" & ReportGenAt & "'"
+    
+    '----------------------------------------------------------------------------
+    SQL = "Exec rptItemList " & CONST_Category & "," & CONST_Item & ",0," & txtLabelCount.Text
+    
+    gCnnMst.Execute SQL
+
+    With frmCrviewer
+        .ViewReport mRpt, SpPrm(), formulas(), 0
+        .Tag = "rep_BarcodeLabel"
+        .Show
+    End With
+
+    '----------------------------------------------------------------------------
+    ResetReportFilters
+
 End Sub
 
 Private Sub GenerateBarcodeLabels()
