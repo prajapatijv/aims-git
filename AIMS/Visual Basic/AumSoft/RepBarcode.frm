@@ -291,13 +291,15 @@ Private Sub GeneratePaymentBarcodeLabels()
     
     Select Case LCase(Me.Tag)
         Case LCase("rep_ItmBarcode")
-            SetReportFilters CONST_Item, PAYMENT_BARCODE, ""
+            Dim intLoop As Integer
+            For intLoop = 1 To Int(txtLabelCount.Text) - 1
+                SetReportFilters CONST_Item, PAYMENT_BARCODE, ""
+            Next intLoop
 
             ReDim SpPrm(0) As String
             ReDim formulas(0) As String
             
             If optSideBySideLabel.Value = True Then
-                SetReportFilters CONST_Item, "00000", ""
                 mRpt = "BarcodeLabel_Sbs.rpt"
             End If
             

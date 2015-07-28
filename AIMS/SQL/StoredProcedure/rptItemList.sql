@@ -83,7 +83,6 @@ Begin
 		select tmpReportSource.* 
 		from tmpReportSource
 		inner join tmpReportFilters on tmpReportSource.itm_code = tmpReportFilters.nVal
-
 		--Delete top 1 from tmpReportSource
 	End
 
