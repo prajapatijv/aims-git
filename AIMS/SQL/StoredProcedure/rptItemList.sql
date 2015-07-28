@@ -11,14 +11,16 @@ If Exists
 	End
 Go
 /*
-	rptItemList 'Category','Item',1
+	Exec rptitemlist 'category','item',1,0
+	Exec rptitemlist 'category','item',1,0,1
 */
 create procedure rptItemList
 (
 	@IncludeCategory		as	varchar(20)	= 'Category',			
 	@IncludeItem			as  varchar(20) = 'Item',
 	@PreviewEnabled			as	tinyint,						--Used to view data in Sql server only for debug purpose
-	@RepeatLabelCount		as	tinyint = 0
+	@RepeatLabelCount		as	tinyint = 0,
+	@isPaymentLabel			as  tinyint = 0
 )
 As
 Begin
@@ -30,36 +32,50 @@ Begin
 		Drop Table tmpReportSource
 	End		
 
-	select 	 
-		 Items.code									as itm_code
-		,isnull(Items.shortname,'')	 +
-			(Case isnull(Sizes.Code,0)
-				When 0 then ''
-				Else ' (' + isnull(Sizes.shortname,'') + ')'
-			 End) as itm_shortname
+	if (@isPaymentLabel = 1)
+	Begin
+		select
+			 0					as itm_code
+			,'kkcej vwhw fhut.'	as itm_shortname	--Bill Puru Karo.
+			, 0					as rtl_prc
+			, 0					as disc_amt
+			, 0					as Category_Code
+			, 'Payment Barcode' as Category_Name
+			, '00000'			as ItemBarcode
+		into tmpReportSource
+	End
+	Else
+	Begin
+		select 	 
+			 Items.code									as itm_code
+			,isnull(Items.shortname,'')	 +
+				(Case isnull(Sizes.Code,0)
+					When 0 then ''
+					Else ' (' + isnull(Sizes.shortname,'') + ')'
+				 End) as itm_shortname
 
-		,isnull(Items.rtl_prc,0)				as rtl_prc
-		,isnull(Items.disc_amt,0)				as disc_amt
+			,isnull(Items.rtl_prc,0)				as rtl_prc
+			,isnull(Items.disc_amt,0)				as disc_amt
 		
-		,isnull(Categories.Code,0)				as Category_Code
-		,isnull(Categories.shortname,'')		
-			+ '  (' + Convert(Varchar(4),isnull(Categories.Code,0)) + ')' 	as Category_Name
-		,isnull(ItemBarcodes.barcode,'')		as ItemBarcode
+			,isnull(Categories.Code,0)				as Category_Code
+			,isnull(Categories.shortname,'')		
+				+ '  (' + Convert(Varchar(4),isnull(Categories.Code,0)) + ')' 	as Category_Name
+			,isnull(ItemBarcodes.barcode,'')		as ItemBarcode
 
-	into tmpReportSource
+		into tmpReportSource
 
-	From Items
-	Inner join ItemBarcodes		on (ItemBarcodes.itm_code = Items.code)				
-	Left join Sizes				on (Sizes.code 			= Items.size_id)
-	Left join Categories		on (Items.Category_Id	= Categories.Code)
+		From Items
+		Inner join ItemBarcodes		on (ItemBarcodes.itm_code = Items.code)				
+		Left join Sizes				on (Sizes.code 			= Items.size_id)
+		Left join Categories		on (Items.Category_Id	= Categories.Code)
 
-	where 	1 = 1
-	and 	Items.Category_Id 	in (Select nVal from tmpReportFilters 
-									where Type = @IncludeCategory) 
+		where 	1 = 1
+		and 	Items.Category_Id 	in (Select nVal from tmpReportFilters 
+										where Type = @IncludeCategory) 
 
-	or		Items.code 			in (Select nVal from tmpReportFilters 
+		or		Items.code 			in (Select nVal from tmpReportFilters 
 									where Type = @IncludeItem)
-	
+	end
 
 	If (@RepeatLabelCount > 0)
 	Begin

@@ -1161,7 +1161,7 @@ Private Enum enmEntry
     eUpdate = 2
 End Enum
 
-Const PAYMENT_BARCODE = "000000"
+Const PAYMENT_BARCODE = "00000"
 
 Private Sub SetMshTickets()
 
@@ -1296,7 +1296,7 @@ Private Sub GetItemByBarcode(s_barcode As String)
         Exit Sub
     End If
     
-    If (Trim(s_barcode) = PAYMENT_BARCODE) Then
+    If (Trim(s_barcode) = gPAYMENT_BARCODE) Then
         SetBarcodeLable (False)
         cmdPay_Click
         Exit Sub

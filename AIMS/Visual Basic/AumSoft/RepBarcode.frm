@@ -234,6 +234,7 @@ Attribute VB_Exposed = False
 Option Explicit
 
 Dim mRpt As String
+Const PAYMENT_BARCODE = "00000"
 
 Private Sub SetTextBoxes()
     
@@ -261,7 +262,7 @@ Public Sub cmdPrint_Click()
 On Error GoTo errhndl
 MP vbHourglass
     
-    If chkisPaymentBarcodeLable.Value = True Then
+    If chkisPaymentBarcodeLable.Value = 1 Then
         GeneratePaymentBarcodeLabels
     Else
         GenerateBarcodeLabels
@@ -290,13 +291,13 @@ Private Sub GeneratePaymentBarcodeLabels()
     
     Select Case LCase(Me.Tag)
         Case LCase("rep_ItmBarcode")
-            SetReportFilters CONST_Item, "000000", ""
+            SetReportFilters CONST_Item, PAYMENT_BARCODE, ""
 
             ReDim SpPrm(0) As String
             ReDim formulas(0) As String
             
             If optSideBySideLabel.Value = True Then
-                SetReportFilters CONST_Item, "000000", ""
+                SetReportFilters CONST_Item, "00000", ""
                 mRpt = "BarcodeLabel_Sbs.rpt"
             End If
             
@@ -313,7 +314,7 @@ Private Sub GeneratePaymentBarcodeLabels()
     'formulas(2) = "GenAt=" & "'" & ReportGenAt & "'"
     
     '----------------------------------------------------------------------------
-    SQL = "Exec rptItemList " & CONST_Category & "," & CONST_Item & ",0," & txtLabelCount.Text
+    SQL = "Exec rptItemList " & CONST_Category & "," & CONST_Item & ",0," & Val(txtLabelCount.Text) & ",1"
     
     gCnnMst.Execute SQL
 

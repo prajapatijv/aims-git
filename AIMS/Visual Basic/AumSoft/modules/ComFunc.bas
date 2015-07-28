@@ -999,12 +999,12 @@ Public Sub Dither(frm As Form)
    Next intLoop
 End Sub
 
-Public Sub SetReportFilters(s_type As String, n_Val As Integer, s_Val As String)
+Public Sub SetReportFilters(s_Type As String, n_Val As Integer, s_Val As String)
 
     SQL = SQL & " Insert into tmpReportFilters " & vbCrLf
     SQL = SQL & " (Type,nVal,sVal) " & vbCrLf
     SQL = SQL & " Values ( " & vbCrLf
-    SQL = SQL & AQ(s_type) & vbCrLf
+    SQL = SQL & AQ(s_Type) & vbCrLf
     SQL = SQL & "," & n_Val & vbCrLf
     SQL = SQL & "," & AQ(s_Val) & vbCrLf
     SQL = SQL & ")"
@@ -1021,15 +1021,15 @@ Public Sub ResetReportFilters()
     
 End Sub
 
-Public Function GenReportSP(s_spName As String, s_spprm() As String)
+Public Function GenReportSP(s_SPName As String, s_spPrm() As String)
 
     Dim tmpStr As String
     Dim iCnt As Integer
     
-    tmpStr = " EXEC " + s_spName
+    tmpStr = " EXEC " + s_SPName
     
-    For iCnt = 0 To UBound(s_spprm)
-        tmpStr = tmpStr + AQ(s_spprm(iCnt)) + ","
+    For iCnt = 0 To UBound(s_spPrm)
+        tmpStr = tmpStr + AQ(s_spPrm(iCnt)) + ","
     Next
     
     tmpStr = Mid$(tmpStr, 1, Len(tmpStr) - 1)
