@@ -1296,7 +1296,7 @@ Private Sub GetItemByBarcode(s_barcode As String)
         Exit Sub
     End If
     
-    If (Trim(s_barcode) = gPAYMENT_BARCODE) Then
+    If (Trim(s_barcode) = PAYMENT_BARCODE) Then
         SetBarcodeLable (False)
         cmdPay_Click
         Exit Sub
@@ -1306,7 +1306,7 @@ Private Sub GetItemByBarcode(s_barcode As String)
     Dim str_ShortName As String
     Set rs_BarcodeItm = New ADODB.Recordset
 
-    SQL = "Exec stpBarcodeItem " & s_barcode
+    SQL = "Exec stpBarcodeItem " & AQ(s_barcode)
     OpenAdoRst rs_BarcodeItm, SQL, adOpenKeyset, , , gCnnMst
 
     If rs_BarcodeItm.RecordCount <= 0 Then
@@ -1379,11 +1379,15 @@ Private Sub cmdVoidItem_Click()
     
     RemoveItem
     
+    SetBarcodeLable (False)
+
 End Sub
 
 Private Sub cmdVoidTicket_Click()
 
     Prepare4NewTiceket
+    
+    SetBarcodeLable (False)
     
 End Sub
 
