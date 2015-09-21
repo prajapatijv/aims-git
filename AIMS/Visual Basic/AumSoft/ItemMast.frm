@@ -5,7 +5,7 @@ Object = "{86144B5E-6628-49BD-BDDD-F6C4F692705D}#1.2#0"; "MyHelp.ocx"
 Begin VB.Form frmItemMast 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Item Master"
-   ClientHeight    =   6630
+   ClientHeight    =   7440
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   8550
@@ -24,16 +24,16 @@ Begin VB.Form frmItemMast
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
    MinButton       =   0   'False
-   ScaleHeight     =   6630
+   ScaleHeight     =   7440
    ScaleWidth      =   8550
    Begin TabDlg.SSTab SSTab1 
-      Height          =   6495
+      Height          =   7300
       Left            =   0
       TabIndex        =   0
       Top             =   120
       Width           =   8535
       _ExtentX        =   15055
-      _ExtentY        =   11456
+      _ExtentY        =   12885
       _Version        =   393216
       TabOrientation  =   1
       Style           =   1
@@ -66,11 +66,79 @@ Begin VB.Form frmItemMast
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   6015
+         Height          =   6855
          Left            =   120
          TabIndex        =   17
          Top             =   60
          Width           =   8235
+         Begin VB.Frame Frame1 
+            Height          =   975
+            Left            =   120
+            TabIndex        =   31
+            Top             =   5640
+            Width           =   7935
+            Begin CommCtrls.NTxtBox txtMin_Qty 
+               Height          =   375
+               Left            =   1560
+               TabIndex        =   29
+               Top             =   360
+               Width           =   1335
+               _ExtentX        =   2355
+               _ExtentY        =   661
+               Desimal         =   0
+               BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+                  Name            =   "MS Sans Serif"
+                  Size            =   9.75
+                  Charset         =   0
+                  Weight          =   400
+                  Underline       =   0   'False
+                  Italic          =   0   'False
+                  Strikethrough   =   0   'False
+               EndProperty
+               MaxVal          =   100
+               AllowNull       =   -1  'True
+            End
+            Begin CommCtrls.NTxtBox txtMax_Qty 
+               Height          =   375
+               Left            =   4620
+               TabIndex        =   30
+               Top             =   360
+               Width           =   1335
+               _ExtentX        =   2355
+               _ExtentY        =   661
+               Desimal         =   0
+               BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
+                  Name            =   "MS Sans Serif"
+                  Size            =   9.75
+                  Charset         =   0
+                  Weight          =   400
+                  Underline       =   0   'False
+                  Italic          =   0   'False
+                  Strikethrough   =   0   'False
+               EndProperty
+               AllowNull       =   -1  'True
+            End
+            Begin VB.Label lblMinOrderQty 
+               AutoSize        =   -1  'True
+               BackStyle       =   0  'Transparent
+               Caption         =   "Min Order Qty."
+               Height          =   240
+               Left            =   120
+               TabIndex        =   33
+               Top             =   420
+               Width           =   1260
+            End
+            Begin VB.Label lblMaxOrderQty 
+               AutoSize        =   -1  'True
+               BackStyle       =   0  'Transparent
+               Caption         =   "Max Order Qty."
+               Height          =   240
+               Left            =   3000
+               TabIndex        =   32
+               Top             =   420
+               Width           =   1320
+            End
+         End
          Begin VB.CheckBox chkGenBarcodeFromCode 
             Caption         =   "Generated from code"
             Enabled         =   0   'False
@@ -729,10 +797,6 @@ Private Sub SetTextBoxes()
         
 End Sub
 
-Private Sub cmbBillFmt_LostFocus()
-    AskSave txtCode.Text, txtDisc_Amt, mEntryMode
-End Sub
-
 Private Sub Form_Activate()
 On Error GoTo errhndl
 MP vbHourglass
@@ -780,6 +844,8 @@ MP vbHourglass
     SQL = SQL & ",unit_id"
     SQL = SQL & ",BillFmt"
     SQL = SQL & ",Trng_fg"
+    SQL = SQL & ",min_qty"
+    SQL = SQL & ",max_qty"
     
     SQL = SQL & " ) Values ("
     
@@ -805,6 +871,9 @@ MP vbHourglass
     SQL = SQL & "," & Val(cmbBillFmt.ItemData(cmbBillFmt.ListIndex))
     
     SQL = SQL & "," & IsTrainingMode
+
+    SQL = SQL & "," & Val(txtMin_Qty.Text)
+    SQL = SQL & "," & Val(txtMax_Qty.Text)
 
     SQL = SQL & ")"
     
@@ -952,6 +1021,10 @@ Private Sub txtDisc_Per_LostFocus()
     If Val(txtDisc_Per.Text) > 0 And Val(txtRtl_Prc.Text) > 0 Then
         txtDisc_Amt.Text = Round((Val(txtRtl_Prc.Text) * Val(txtDisc_Per.Text)) / 100, 2)
     End If
+End Sub
+
+Private Sub txtMaxOrderQty_LostFocus()
+    AskSave txtCode.Text, txtDisc_Amt, mEntryMode
 End Sub
 
 Private Sub txtRtl_Prc_LostFocus()
