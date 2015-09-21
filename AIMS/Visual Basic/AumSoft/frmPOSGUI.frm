@@ -1343,9 +1343,9 @@ Private Sub cmdPay_Click()
 
     Dim mbtnOkPressed As Boolean
     mbtnOkPressed = False
-    If Val(cmdPay.Caption) = 0 Then
-        Exit Sub
-    End If
+    'If Val(cmdPay.Caption) = 0 Then
+    '    Exit Sub
+    'End If
     
     With frmDenoms
         mdTicketDenom = .Display(Val(cmdPay.Caption), mbtnOkPressed)
