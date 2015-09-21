@@ -100,13 +100,13 @@ Begin VB.MDIForm mdiMainMenu
    End
    Begin MSComctlLib.Toolbar TbrMain 
       Align           =   1  'Align Top
-      Height          =   1020
+      Height          =   360
       Left            =   0
       TabIndex        =   1
       Top             =   0
       Width           =   8745
       _ExtentX        =   15425
-      _ExtentY        =   1799
+      _ExtentY        =   635
       ButtonWidth     =   1931
       ButtonHeight    =   582
       Appearance      =   1
@@ -305,13 +305,13 @@ Begin VB.MDIForm mdiMainMenu
          BeginProperty Panel8 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   6
             Alignment       =   1
-            TextSave        =   "14/07/2015"
+            TextSave        =   "21/09/2015"
          EndProperty
          BeginProperty Panel9 {8E3867AB-8586-11D1-B16A-00C0F0283628} 
             Style           =   5
             Object.Width           =   1764
             MinWidth        =   1764
-            TextSave        =   "21:38"
+            TextSave        =   "23:48"
          EndProperty
       EndProperty
       BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
@@ -639,6 +639,12 @@ Dim formulas() As String
         Case LCase("rep_ItmLst")
             With frmRepItem
                 .Tag = "rep_ItemList"
+                .Show
+            End With
+            
+        Case LCase("rep_ItmLst_MinMaxOrderQty")
+            With frmRepItem
+                .Tag = "rep_ItmLst_MinMaxOrderQty"
                 .Show
             End With
             
@@ -1020,20 +1026,28 @@ MP vbHourglass
     mnuReportsArr1(6).Tag = "rep_ItmLst"
         
     Load mnuReportsArr1(7)
-    mnuReportsArr1(7).Caption = "&7. Stock Report"
-    mnuReportsArr1(7).Tag = "rep_opcl"
+    mnuReportsArr1(7).Caption = "&7. Item Min Max Order Quantity Report"
+    mnuReportsArr1(7).Tag = "rep_ItmLst_MinMaxOrderQty"
         
     Load mnuReportsArr1(8)
-    mnuReportsArr1(8).Caption = "&8. Stock Report - 2"
-    mnuReportsArr1(8).Tag = "rep_opcl2"
-    
+    mnuReportsArr1(8).Caption = "-"
+    mnuReportsArr1(8).Tag = "mnuRepArrdash3"
+        
     Load mnuReportsArr1(9)
-    mnuReportsArr1(9).Caption = "&9. Inventory Summary Report"
-    mnuReportsArr1(9).Tag = "rep_Invsum"
+    mnuReportsArr1(9).Caption = "&8. Stock Report"
+    mnuReportsArr1(9).Tag = "rep_opcl"
         
     Load mnuReportsArr1(10)
-    mnuReportsArr1(10).Caption = "&A. Barcode Label Generator"
-    mnuReportsArr1(10).Tag = "rep_ItmBarcode"
+    mnuReportsArr1(10).Caption = "&9. Stock Report - 2"
+    mnuReportsArr1(10).Tag = "rep_opcl2"
+    
+    Load mnuReportsArr1(11)
+    mnuReportsArr1(11).Caption = "&A. Inventory Summary Report"
+    mnuReportsArr1(11).Tag = "rep_Invsum"
+        
+    Load mnuReportsArr1(12)
+    mnuReportsArr1(12).Caption = "&B. Barcode Label Generator"
+    mnuReportsArr1(12).Tag = "rep_ItmBarcode"
         
 '    Load mnuReportsArr1(10)
 '    mnuReportsArr1(10).Caption = "&A. Inventory Detail Report"

@@ -335,6 +335,15 @@ Private Sub GenerateItemReport()
             mRpt = "ItemList.rpt"
             
             formulas(0) = "ReportTitle='Item List Report'"
+            
+        Case LCase("rep_ItmLst_MinMaxOrderQty")
+            ReDim SpPrm(0) As String
+            ReDim formulas(2) As String
+            
+            mRpt = "ItemListMinMaxOrderQty.rpt"
+            
+            formulas(0) = "ReportTitle='Item Min/Max Qty Report'"
+
     End Select
         
     
@@ -369,7 +378,7 @@ Private Sub GenerateItemReport()
 
     With frmCrviewer
         .ViewReport mRpt, SpPrm(), formulas(), 0
-        .Tag = "rep_ItmLst"
+        .Tag = mRpt
         .Show
     End With
 

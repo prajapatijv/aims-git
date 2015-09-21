@@ -42,6 +42,8 @@ Begin
 			, 0					as Category_Code
 			, 'Payment Barcode' as Category_Name
 			, '00000'			as ItemBarcode
+			, 0					as min_order_qty
+			, 0					as max_order_qty
 		into tmpReportSource
 	End
 	Else
@@ -61,6 +63,9 @@ Begin
 			,isnull(Categories.shortname,'')		
 				+ '  (' + Convert(Varchar(4),isnull(Categories.Code,0)) + ')' 	as Category_Name
 			,isnull(ItemBarcodes.barcode,'')		as ItemBarcode
+			
+			, Items.min_qty		as min_order_qty
+			, Items.max_qty		as max_order_qty
 
 		into tmpReportSource
 
