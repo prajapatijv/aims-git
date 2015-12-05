@@ -3,7 +3,7 @@ Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "CommCtrls.ocx"
 Begin VB.Form frmQty 
    BorderStyle     =   0  'None
    Caption         =   "Quantity"
-   ClientHeight    =   975
+   ClientHeight    =   1830
    ClientLeft      =   0
    ClientTop       =   0
    ClientWidth     =   5070
@@ -12,17 +12,18 @@ Begin VB.Form frmQty
    LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
-   ScaleHeight     =   975
+   ScaleHeight     =   1830
    ScaleWidth      =   5070
    ShowInTaskbar   =   0   'False
    Begin VB.Frame Frame2 
       Height          =   855
       Left            =   120
       TabIndex        =   2
-      Top             =   0
+      Top             =   840
       Width           =   4815
       Begin VB.CommandButton cmdOk 
          Caption         =   "&Ok"
+         Default         =   -1  'True
          BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   9.75
@@ -34,7 +35,7 @@ Begin VB.Form frmQty
          EndProperty
          Height          =   495
          Left            =   2400
-         TabIndex        =   0
+         TabIndex        =   1
          TabStop         =   0   'False
          Top             =   240
          Width           =   1020
@@ -52,15 +53,15 @@ Begin VB.Form frmQty
          EndProperty
          Height          =   495
          Left            =   3480
-         TabIndex        =   1
+         TabIndex        =   3
          TabStop         =   0   'False
          Top             =   240
          Width           =   1140
       End
-      Begin CommCtrls.NTxtBox txtPayAmt 
+      Begin CommCtrls.NTxtBox txtQty 
          Height          =   495
          Left            =   120
-         TabIndex        =   3
+         TabIndex        =   0
          TabStop         =   0   'False
          Top             =   240
          Width           =   2100
@@ -78,6 +79,26 @@ Begin VB.Form frmQty
          AllowNull       =   -1  'True
       End
    End
+   Begin VB.Label lblItemName 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Item Name"
+      BeginProperty Font 
+         Name            =   "MS Sans Serif"
+         Size            =   9.75
+         Charset         =   0
+         Weight          =   700
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      ForeColor       =   &H00C00000&
+      Height          =   240
+      Left            =   240
+      TabIndex        =   4
+      Top             =   360
+      Width           =   1125
+   End
    Begin VB.Shape Shape1 
       BorderColor     =   &H00C00000&
       BorderWidth     =   3
@@ -94,14 +115,13 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 Option Explicit
 
-Dim dMindTicketAmout As Double
-Dim dTicketAmout As Double
+Dim mQty As Integer
 Dim btnOkPressed As Boolean
 
-Public Function Display(s_dTicketAmount As Double, ByRef s_btnOkPressed As Boolean) As Double
+Public Function Display(s_itemDescr As String, s_mInitQty As Integer, ByRef s_btnOkPressed As Boolean) As Integer
     
-    txtPayAmt.Text = s_dTicketAmount
-    dMindTicketAmout = s_dTicketAmount
+    lblItemName.Caption = s_itemDescr
+    txtQty.Text = s_mInitQty
     
     With frmPosGui
         Me.Move .frmMainContainer.Left + (.mshTicket.Width + 250), _
@@ -110,20 +130,23 @@ Public Function Display(s_dTicketAmount As Double, ByRef s_btnOkPressed As Boole
     
     Me.Show vbModal
     s_btnOkPressed = btnOkPressed
-    Display = dTicketAmout
+    Display = mQty
     
 End Function
 
 Private Sub SetTextBoxes()
     
-    txtPayAmt.Font.Name = gGujaratiFontName
-    txtPayAmt.Font.Size = 18
-    txtPayAmt.Font.Bold = True
+    lblItemName.Font.Name = gGujaratiFontName
+    lblItemName.Font.Size = 18
+    lblItemName.Font.Bold = True
+    
+    txtQty.Font.Name = gGujaratiFontName
+    txtQty.Font.Size = 18
+    txtQty.Font.Bold = True
     
 End Sub
 
 Private Sub cmdCancel_Click()
-    dTicketAmout = 0
     btnOkPressed = False
     Unload Me
 End Sub
@@ -136,13 +159,12 @@ End Sub
 
 Private Sub cmdOk_Click()
 
-    If Val(txtPayAmt.Text) < dMindTicketAmout Then
-        MsgBox "Minimum Ticket Amount " & dMindTicketAmout
-        txtPayAmt.Text = dMindTicketAmout
+    If Val(txtQty.Text) < 0 Then
+        MsgBox "Qty must be positive value!"
         Exit Sub
     End If
     
-    dTicketAmout = Val(txtPayAmt.Text)
+    mQty = Val(txtQty.Text)
     btnOkPressed = True
     Unload Me
 

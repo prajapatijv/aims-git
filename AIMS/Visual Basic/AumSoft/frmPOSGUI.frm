@@ -1041,23 +1041,6 @@ Begin VB.Form frmPosGui
             TabIndex        =   50
             TabStop         =   0   'False
             Top             =   240
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             Width           =   1275
          End
          Begin VB.CommandButton cmdNoStock 
@@ -1395,20 +1378,23 @@ Private Sub cmdQty_Click()
     Dim mbtnOkPressed As Boolean
     mbtnOkPressed = False
     
-    With frmQty
-        mdTicketDenom = .Display(Val(cmdPay.Caption), mbtnOkPressed)
-    End With
-    
-    If mbtnOkPressed Then
-        ''Update Qty
+    If mshTicket.Rows > 0 Then
+        Dim initQty As Integer
+        Dim itemDescr As String
+
+        initQty = Val(mshTicket.TextMatrix(mshTicket.RowSel, enmColTicket.eItmQty))
+        itemDescr = mshTicket.TextMatrix(mshTicket.RowSel, enmColTicket.eItmDescr)
+            
+        With frmQty
+            initQty = .Display(itemDescr, initQty, mbtnOkPressed)
+        End With
+        
+        If mbtnOkPressed Then
+            ''Update Qty
+            UpdateItem mshTicket.RowSel, initQty
+            
+        End If
     End If
-    
-    
-    lblChangeAmount.Caption = "Change Amount " & vbCrLf & _
-                Format$(mdTicketDenom - Val(cmdPay.Caption), "###0.00")
-                
-    
-    Prepare4NewTiceket
     
 End Sub
 
@@ -1535,6 +1521,7 @@ Private Sub TicketTotal()
     txtTotalDiscount.Text = Format$(dDiscAmt, "###.00")
     
     cmdPay.Caption = txtTotalAmount.Text
+    
 End Sub
 
 Private Sub SetControls()
@@ -1643,6 +1630,13 @@ On Error GoTo errorhandler
         cmdVoidItem.Enabled = (.Rows > 0)
         cmdVoidTicket.Enabled = (.Rows > 0)
         cmdPay.Enabled = (.Rows > 0)
+        cmdQty.Enabled = (.Rows > 0)
+        
+        ''Make last row selected by default
+        If .Rows > 0 Then
+            mshTicket.RowSel = (mshTicket.Rows - 1)
+        End If
+        
     End With
 
     TicketTotal
@@ -1688,6 +1682,39 @@ Private Sub RemoveItem()
     
     RebindTicketGrid
 End Sub
+
+
+Private Sub UpdateItem(selectedRow As Integer, qty As Integer)
+
+    Dim mItemId As Long
+    Dim dDiscAmt As Double
+    
+    If mshTicket.Rows > 0 Then
+        mItemId = Val(mshTicket.TextMatrix(selectedRow, enmColTicket.eItmId))
+        
+        With rs_TicItms
+            If IsItemExists(mItemId) Then
+                If Val(.Fields("qty").Value) > 0 Then
+                    dDiscAmt = Val(.Fields("disc_amt")) / Val(.Fields("qty").Value)
+                End If
+                
+                .Fields("qty").Value = qty
+                .Fields("rtl_amt") = Format$((Val(.Fields("rtl_prc")) - dDiscAmt) * Val(.Fields("qty")), "###.00")
+                .Fields("disc_amt") = Format$(dDiscAmt * Val(.Fields("qty")), "###.00")
+                
+                .Update
+                If .Fields("qty").Value = 0 Then
+                    .Delete adAffectCurrent
+                    .Update
+                End If
+            End If
+        End With
+    
+    End If
+    
+    RebindTicketGrid
+End Sub
+
 
 Private Sub Prepare4NewTiceket()
     
