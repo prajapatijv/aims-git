@@ -6,21 +6,21 @@ Begin VB.Form frmQty
    ClientHeight    =   1830
    ClientLeft      =   0
    ClientTop       =   0
-   ClientWidth     =   5070
+   ClientWidth     =   6495
    Icon            =   "qty.frx":0000
    LinkTopic       =   "Form1"
    LockControls    =   -1  'True
    MaxButton       =   0   'False
    MinButton       =   0   'False
    ScaleHeight     =   1830
-   ScaleWidth      =   5070
+   ScaleWidth      =   6495
    ShowInTaskbar   =   0   'False
    Begin VB.Frame Frame2 
       Height          =   855
       Left            =   120
       TabIndex        =   2
       Top             =   840
-      Width           =   4815
+      Width           =   6255
       Begin VB.CommandButton cmdOk 
          Caption         =   "&Ok"
          Default         =   -1  'True
@@ -34,11 +34,11 @@ Begin VB.Form frmQty
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   2400
+         Left            =   3480
          TabIndex        =   1
          TabStop         =   0   'False
          Top             =   240
-         Width           =   1020
+         Width           =   1260
       End
       Begin VB.CommandButton cmdCancel 
          Caption         =   "&Cancel"
@@ -52,7 +52,7 @@ Begin VB.Form frmQty
             Strikethrough   =   0   'False
          EndProperty
          Height          =   495
-         Left            =   3480
+         Left            =   4920
          TabIndex        =   3
          TabStop         =   0   'False
          Top             =   240
@@ -64,8 +64,8 @@ Begin VB.Form frmQty
          TabIndex        =   0
          TabStop         =   0   'False
          Top             =   240
-         Width           =   2100
-         _ExtentX        =   3704
+         Width           =   3180
+         _ExtentX        =   5609
          _ExtentY        =   873
          BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
             Name            =   "MS Sans Serif"
@@ -151,12 +151,6 @@ Private Sub cmdCancel_Click()
     Unload Me
 End Sub
 
-Private Sub cmdDenoms_Click(Index As Integer)
-    
-    cmdOk_Click
-    
-End Sub
-
 Private Sub cmdOk_Click()
 
     If Val(txtQty.Text) < 0 Then
@@ -182,3 +176,4 @@ Private Sub Form_Resize()
         .Move 0, 0, Me.Width, Me.Height
     End With
 End Sub
+

@@ -1383,7 +1383,8 @@ Private Sub cmdQty_Click()
         Dim itemDescr As String
 
         initQty = Val(mshTicket.TextMatrix(mshTicket.RowSel, enmColTicket.eItmQty))
-        itemDescr = mshTicket.TextMatrix(mshTicket.RowSel, enmColTicket.eItmDescr)
+        itemDescr = mshTicket.TextMatrix(mshTicket.RowSel, enmColTicket.eItmDescr) + " - " + _
+                    mshTicket.TextMatrix(mshTicket.RowSel, enmColTicket.eItmRtlPrc)
             
         With frmQty
             initQty = .Display(itemDescr, initQty, mbtnOkPressed)
