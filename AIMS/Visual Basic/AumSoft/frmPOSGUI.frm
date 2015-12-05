@@ -1041,7 +1041,23 @@ Begin VB.Form frmPosGui
             TabIndex        =   50
             TabStop         =   0   'False
             Top             =   240
-            Visible         =   0   'False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             Width           =   1275
          End
          Begin VB.CommandButton cmdNoStock 
@@ -1372,6 +1388,27 @@ End Sub
 Private Sub cmdPrint_Click()
 
     Unload Me
+    
+End Sub
+
+Private Sub cmdQty_Click()
+    Dim mbtnOkPressed As Boolean
+    mbtnOkPressed = False
+    
+    With frmQty
+        mdTicketDenom = .Display(Val(cmdPay.Caption), mbtnOkPressed)
+    End With
+    
+    If mbtnOkPressed Then
+        ''Update Qty
+    End If
+    
+    
+    lblChangeAmount.Caption = "Change Amount " & vbCrLf & _
+                Format$(mdTicketDenom - Val(cmdPay.Caption), "###0.00")
+                
+    
+    Prepare4NewTiceket
     
 End Sub
 
