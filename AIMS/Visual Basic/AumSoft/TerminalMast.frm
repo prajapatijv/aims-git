@@ -72,7 +72,7 @@ Begin VB.Form frmTerminalMast
          TabIndex        =   9
          Top             =   60
          Width           =   8235
-         Begin VB.CheckBox chkAllowImportExport 
+         Begin VB.CheckBox chkImportBarred 
             Caption         =   "Disable Import of transaction data"
             Height          =   375
             Left            =   240
@@ -563,6 +563,7 @@ MP vbHourglass
     SQL = SQL & ", dtausr"
     
     SQL = SQL & ",Trng_fg"
+    SQL = SQL & ",ImportBarred"
 
     SQL = SQL & " ) Values ("
     
@@ -578,7 +579,7 @@ MP vbHourglass
     SQL = SQL & "," & AQ(gUser)
     
     SQL = SQL & "," & IsTrainingMode
-    
+    SQL = SQL & "," & Val(chkImportBarred.Value)
     SQL = SQL & ")"
     
     gCnnMst.Execute SQL
@@ -620,7 +621,7 @@ MP vbHourglass
     With rsttmp
         If .RecordCount > 0 Then
             AdoRsRead rsttmp
-            hlpkeybrd_id.GetNameText hlpkeybrd_id.CodeText
+            hlpkeybrd_id.GetNameText Val(hlpkeybrd_id.CodeText)
             
         End If
     End With
