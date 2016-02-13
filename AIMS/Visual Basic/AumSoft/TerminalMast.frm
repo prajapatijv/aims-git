@@ -5,7 +5,7 @@ Object = "{86144B5E-6628-49BD-BDDD-F6C4F692705D}#1.2#0"; "MyHelp.ocx"
 Begin VB.Form frmTerminalMast 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Terminal Configuration"
-   ClientHeight    =   3510
+   ClientHeight    =   3810
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   8550
@@ -25,16 +25,16 @@ Begin VB.Form frmTerminalMast
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
    MinButton       =   0   'False
-   ScaleHeight     =   3510
+   ScaleHeight     =   3810
    ScaleWidth      =   8550
    Begin TabDlg.SSTab SSTab1 
-      Height          =   3255
+      Height          =   3615
       Left            =   0
       TabIndex        =   0
       Top             =   120
       Width           =   8535
       _ExtentX        =   15055
-      _ExtentY        =   5741
+      _ExtentY        =   6376
       _Version        =   393216
       TabOrientation  =   1
       Style           =   1
@@ -67,11 +67,19 @@ Begin VB.Form frmTerminalMast
             Italic          =   0   'False
             Strikethrough   =   0   'False
          EndProperty
-         Height          =   2655
+         Height          =   3135
          Left            =   120
-         TabIndex        =   8
+         TabIndex        =   9
          Top             =   60
          Width           =   8235
+         Begin VB.CheckBox chkAllowImportExport 
+            Caption         =   "Disable Import of transaction data"
+            Height          =   375
+            Left            =   240
+            TabIndex        =   5
+            Top             =   2640
+            Width           =   4215
+         End
          Begin VB.CheckBox chkActv_Fg 
             Height          =   255
             Left            =   2760
@@ -82,7 +90,7 @@ Begin VB.Form frmTerminalMast
          Begin VB.Frame fmeValues1 
             Height          =   735
             Left            =   150
-            TabIndex        =   11
+            TabIndex        =   12
             Top             =   1800
             Width           =   7935
             Begin HlpN.HlpNCode hlpkeybrd_id 
@@ -100,7 +108,7 @@ Begin VB.Form frmTerminalMast
                Caption         =   "Keyboard Code*"
                Height          =   240
                Left            =   120
-               TabIndex        =   13
+               TabIndex        =   14
                Top             =   300
                Width           =   1500
             End
@@ -108,7 +116,7 @@ Begin VB.Form frmTerminalMast
          Begin CommCtrls.ItxtBox txtCode 
             Height          =   375
             Left            =   1800
-            TabIndex        =   5
+            TabIndex        =   6
             Top             =   360
             Width           =   855
             _ExtentX        =   1508
@@ -175,7 +183,7 @@ Begin VB.Form frmTerminalMast
             Caption         =   "Short Name*"
             Height          =   240
             Left            =   240
-            TabIndex        =   12
+            TabIndex        =   13
             Top             =   1387
             Width           =   1140
          End
@@ -196,7 +204,7 @@ Begin VB.Form frmTerminalMast
             ForeColor       =   &H00800000&
             Height          =   240
             Left            =   7320
-            TabIndex        =   9
+            TabIndex        =   10
             Top             =   240
             Width           =   600
          End
@@ -206,7 +214,7 @@ Begin VB.Form frmTerminalMast
             Caption         =   "Name*"
             Height          =   240
             Left            =   240
-            TabIndex        =   7
+            TabIndex        =   8
             Top             =   900
             Width           =   630
          End
@@ -216,7 +224,7 @@ Begin VB.Form frmTerminalMast
             Caption         =   " Code*"
             Height          =   240
             Left            =   240
-            TabIndex        =   6
+            TabIndex        =   7
             Top             =   420
             Width           =   615
          End
@@ -225,7 +233,7 @@ Begin VB.Form frmTerminalMast
    Begin HlpN.HlpNCode hlpFind 
       Height          =   375
       Left            =   0
-      TabIndex        =   10
+      TabIndex        =   11
       Top             =   240
       Visible         =   0   'False
       Width           =   4395

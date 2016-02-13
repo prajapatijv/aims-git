@@ -1026,7 +1026,7 @@ Begin VB.Form frmPosGui
             Width           =   1275
          End
          Begin VB.CommandButton cmdQty 
-            Caption         =   "Quantity"
+            Caption         =   "&Quantity"
             BeginProperty Font 
                Name            =   "MS Sans Serif"
                Size            =   12
@@ -1426,6 +1426,9 @@ Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
         cmdPay_Click
     ElseIf KeyCode = vbKeyReturn And Trim$(txtBarcode.Text) <> "" Then
         GetItemByBarcode (txtBarcode.Text)
+    'ElseIf KeyCode = vbKeyQ Then
+    '    KeyCode = 0
+    '    cmdQty_Click
     End If
 
 End Sub
@@ -1685,7 +1688,7 @@ Private Sub RemoveItem()
 End Sub
 
 
-Private Sub UpdateItem(selectedRow As Integer, qty As Integer)
+Private Sub UpdateItem(selectedRow As Integer, Qty As Integer)
 
     Dim mItemId As Long
     Dim dDiscAmt As Double
@@ -1699,7 +1702,7 @@ Private Sub UpdateItem(selectedRow As Integer, qty As Integer)
                     dDiscAmt = Val(.Fields("disc_amt")) / Val(.Fields("qty").Value)
                 End If
                 
-                .Fields("qty").Value = qty
+                .Fields("qty").Value = Qty
                 .Fields("rtl_amt") = Format$((Val(.Fields("rtl_prc")) - dDiscAmt) * Val(.Fields("qty")), "###.00")
                 .Fields("disc_amt") = Format$(dDiscAmt * Val(.Fields("qty")), "###.00")
                 

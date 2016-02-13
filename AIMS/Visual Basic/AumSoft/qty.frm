@@ -8,6 +8,7 @@ Begin VB.Form frmQty
    ClientTop       =   0
    ClientWidth     =   6495
    Icon            =   "qty.frx":0000
+   KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
    LockControls    =   -1  'True
    MaxButton       =   0   'False

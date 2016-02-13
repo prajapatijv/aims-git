@@ -1,4 +1,4 @@
-AdoProcs = 19, 122, 952, 464, C
+AdoProcs = 19, 122, 952, 464, Z
 ComEVars = 130, 130, 944, 582, C
 SrvMod = 208, 208, 1022, 660, C
 ComFunc = 104, 104, 1037, 446, C
@@ -12,7 +12,7 @@ frmItemMast = 52, 52, 866, 504, C, 208, 208, 1022, 660, C
 frmPosGui = 208, 208, 1022, 660, C, 182, 182, 996, 634, C
 frmDenoms = 130, 130, 1063, 472, C, 26, 26, 840, 478, C
 frmKeybrdSetup = 52, 52, 866, 504, C, 52, 52, 866, 504, C
-frmServerExport = 0, 0, 0, 0, C, 78, 78, 892, 530, C
+frmServerExport = 104, 104, 918, 556, , 78, 78, 892, 530, C
 frmTerminalMast = 26, 26, 840, 478, C, 0, 0, 814, 452, C
 frmInvtrn = 156, 156, 970, 608, C, 130, 130, 944, 582, C
 TicketPrint = 0, 0, 933, 342, C
