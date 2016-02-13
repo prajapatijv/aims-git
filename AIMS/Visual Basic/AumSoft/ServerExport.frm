@@ -469,6 +469,8 @@ Private Function ImportTerminalDataAtServer()
         
         rst.Close
         Set rst = Nothing
+        rstTer.Close
+        Set rstTer = Nothing
         ''''
     Wend
 
@@ -478,6 +480,7 @@ Private Function ImportTerminalDataAtServer()
     cmdImport.Enabled = True
     
     Set rst = Nothing
+    Set rstTer = Nothing
     
     Exit Function
 Err:
