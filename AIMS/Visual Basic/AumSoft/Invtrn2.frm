@@ -1116,7 +1116,7 @@ End Sub
 
 Private Sub msfDetail_DblClick()
     
-    Dim arr(5) As String
+    Dim arr(6) As String
     Dim revVal As Variant
     Dim iEditRow As Integer
     
@@ -1128,6 +1128,7 @@ Private Sub msfDetail_DblClick()
         arr(3) = .TextMatrix(.Row, dColUnit)
         arr(4) = .TextMatrix(.Row, dColrtl_rpc)
         arr(5) = .TextMatrix(.Row, dColAmt)
+        arr(6) = Val(cmbType.ItemData(cmbType.ListIndex))
     End With
     
     With frmInvtrnDetails

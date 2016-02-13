@@ -39,6 +39,7 @@ Dim IsIniFound As Boolean
     gPrintEnable = Readfromini("PrintEnable", mIniFile)
     gTktFmt = Readfromini("TktFmt", mIniFile)
     gAIMS_SERVER_TYPE = Readfromini("AIMS_SERVER_TYPE", mIniFile)
+    gDenyZeroQtyMaterialInwardOutwardTypes = Readfromini("DenyZeroQtyMaterialInwardOutwardTypes", mIniFile)
 
     gSrvUID = "sa"
     gSrvPwd = ""

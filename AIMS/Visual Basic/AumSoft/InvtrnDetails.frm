@@ -242,9 +242,11 @@ Const dColQty = 2
 Const dColUnit = 3
 Const dColrtl_rpc = 4
 Const dColAmt = 5
+Const dColTranType = 6
 
 Dim btnOkPressed As Boolean
-Dim arr(5) As String
+Dim arr(6) As String
+Dim tranType As Integer
 
 Private Sub CalculateWtItemTot()
 On Error GoTo errhndl
@@ -272,6 +274,7 @@ Private Sub SetFieldValues(s_arrdata() As String)
     txtQty.Text = arr(dColQty)
     txtRtl_Prc.Text = arr(dColrtl_rpc)
     txtAmt.Text = arr(dColAmt)
+    tranType = arr(dColTranType)
     
 End Sub
 
@@ -291,7 +294,19 @@ Private Sub cmdCancel_Click()
 End Sub
 
 Private Sub cmdOk_Click()
+    Dim zerobarredTypes() As String
+    Dim iCnt As Integer
     
+    zerobarredTypes = Split(gDenyZeroQtyMaterialInwardOutwardTypes, ",")
+    
+    For iCnt = 0 To UBound(zerobarredTypes)
+        If tranType = zerobarredTypes(iCnt) Then
+             MsgBox "Please provide value for Quantiry. Zero Quantity not allowed!", vbOKOnly
+        End If
+        btnOkPressed = False
+    Next
+
+
     btnOkPressed = True
     
     arr(dColQty) = txtQty.Text
