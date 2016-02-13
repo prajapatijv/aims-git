@@ -425,6 +425,12 @@ Private Function ImportTerminalDataAtServer()
         Dim rst As ADODB.Recordset
         Set rst = New ADODB.Recordset
     
+        Dim rstTer As ADODB.Recordset
+        Set rstTer = New ADODB.Recordset
+    
+        Dim importBarred As Boolean
+        importBarred = False
+        
         mTerImportFileName = Dir$(mImportMdbPath & "TerminalImpex****.mdb")
     
         SQL = " Select * from ServerExport  "
@@ -435,15 +441,27 @@ Private Function ImportTerminalDataAtServer()
         rst.MoveFirst
         While Not rst.EOF
 
-            lblImport.Caption = " >>> Importing Table " & vbCrLf & Space(9) & _
-                                    rst.Fields("TableName").Value & " . . ."
+            SQL = "Select ImportBarred from TerminalConfig where code = " & Replace(Replace(mTerImportFileName, "TerminalImpex", ""), ".mdb", "")
+            OpenAdoRst rstTer, SQL
+            rstTer.MoveFirst
+            importBarred = IIf(rstTer.Fields("ImportBarred").Value = True, True, False)
 
-            ImportFromMdb2Sql rst.Fields("TableName").Value, mTerImportFileName
-            
-
-            rst.MoveNext
-
-            DoEvents
+            If importBarred = False Then
+                lblImport.Caption = " >>> Importing Table " & vbCrLf & Space(9) & _
+                                        rst.Fields("TableName").Value & " . . ."
+                
+                ImportFromMdb2Sql rst.Fields("TableName").Value, mTerImportFileName
+                
+    
+                rst.MoveNext
+    
+                DoEvents
+            Else
+                lblImport.Caption = " >>> Importing Barred for Table " & vbCrLf & Space(9) & _
+                                        rst.Fields("TableName").Value & " . . ."
+                                        
+                DoEvents
+            End If
         Wend
 
         'Move Mdb File to be Done
