@@ -247,6 +247,7 @@ Const dColTranType = 6
 Dim btnOkPressed As Boolean
 Dim arr(6) As String
 Dim tranType As Integer
+Dim zerobarredTypes() As String
 
 Private Sub CalculateWtItemTot()
 On Error GoTo errhndl
@@ -276,6 +277,12 @@ Private Sub SetFieldValues(s_arrdata() As String)
     txtAmt.Text = arr(dColAmt)
     tranType = arr(dColTranType)
     
+    If Not ZeroUnitPriceAllowed() Then
+        txtRtl_Prc.AllowNull = False
+    Else
+        txtRtl_Prc.AllowNull = True
+    End If
+    
 End Sub
 
 Public Function Display(s_arrdata() As String)
@@ -294,19 +301,6 @@ Private Sub cmdCancel_Click()
 End Sub
 
 Private Sub cmdOk_Click()
-    Dim zerobarredTypes() As String
-    Dim iCnt As Integer
-    
-    zerobarredTypes = Split(gDenyZeroQtyMaterialInwardOutwardTypes, ",")
-    
-    For iCnt = 0 To UBound(zerobarredTypes)
-        If tranType = zerobarredTypes(iCnt) Then
-             MsgBox "Please provide value for Quantiry. Zero Quantity not allowed!", vbOKOnly
-        End If
-        btnOkPressed = False
-    Next
-
-
     btnOkPressed = True
     
     arr(dColQty) = txtQty.Text
@@ -326,9 +320,27 @@ Private Sub Form_Load()
     txtItemName.Font.Size = 12
     txtItemName.Locked = True
     
+    zerobarredTypes = Split(gDenyZeroPriceMaterialInwardOutwardTypes, ",")
+
     CenterFrmNonChild Me
     
 End Sub
+
+Private Function ZeroUnitPriceAllowed() As Boolean
+    
+    Dim iCnt As Integer
+    
+    For iCnt = 0 To UBound(zerobarredTypes)
+        If tranType = zerobarredTypes(iCnt) Then
+            ZeroUnitPriceAllowed = False
+            Exit Function
+        End If
+    Next
+    
+    ZeroUnitPriceAllowed = True
+    Exit Function
+End Function
+
 
 Private Sub txtQty_Change()
 

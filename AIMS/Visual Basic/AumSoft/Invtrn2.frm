@@ -456,6 +456,7 @@ Public mEntryMode As String
 Public mActCtrl As Control
 
 Dim i As Integer
+Dim zerobarredTypes() As String
 
 Const dColItm_id = 0
 Const dColItm_name = 1
@@ -567,6 +568,12 @@ MP vbHourglass
     
     If Not ValidateControl Then
         BtnPressed mdiMainMenu.TbrMain.Buttons(btnadd)
+        Exit Sub
+    End If
+    
+    If Not Validate() Then
+        MsgBox "Please provide value for unit price. Zero price not allowed!", vbOKOnly
+        SetFocusTo msfDetail
         Exit Sub
     End If
     
@@ -782,6 +789,8 @@ MP vbHourglass
     
     GrabActiveControl
     SetMsfDetail msfDetail
+    
+    zerobarredTypes = Split(gDenyZeroPriceMaterialInwardOutwardTypes, ",")
 
 MP vbDefault
 Exit Sub
@@ -852,12 +861,48 @@ Private Sub SetTextBoxes()
     CenterFrmChild Me
 End Sub
 
+Private Function Validate() As Boolean
+    '---Validate Zero Price
+    If Not ZeroUnitPriceAllowed() Then
+        Dim i As Integer
+        With msfDetail
+            For i = 0 To .Rows - 1
+                If Val(.TextMatrix(i, dColrtl_rpc)) = 0 Then
+                    Validate = False
+                    Exit Function
+                End If
+            Next
+        End With
+    Else
+        Validate = True
+        Exit Function
+    End If
+   
+End Function
+
+Private Function ZeroUnitPriceAllowed() As Boolean
+    
+    Dim iCnt As Integer
+    Dim tranType As Integer
+    tranType = Val(cmbType.ItemData(cmbType.ListIndex))
+    
+    For iCnt = 0 To UBound(zerobarredTypes)
+        If tranType = zerobarredTypes(iCnt) Then
+            ZeroUnitPriceAllowed = False
+            Exit Function
+        End If
+    Next
+    
+    ZeroUnitPriceAllowed = True
+    Exit Function
+End Function
+
 Private Sub SaveInTmp()
 On Error GoTo errhndl
 Dim SQL As String
 Dim i As Integer
 MP vbHourglass
-        
+    
     gCnnMst.BeginTrans
     
     If LCase(lblMode.Caption) = "edit" Then
