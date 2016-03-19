@@ -321,7 +321,7 @@ Private Sub Form_Load()
     txtItemName.Locked = True
     
     zerobarredTypes = Split(gDenyZeroPriceMaterialInwardOutwardTypes, ",")
-
+    
     CenterFrmNonChild Me
     
 End Sub

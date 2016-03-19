@@ -40,6 +40,7 @@ Dim IsIniFound As Boolean
     gTktFmt = Readfromini("TktFmt", mIniFile)
     gAIMS_SERVER_TYPE = Readfromini("AIMS_SERVER_TYPE", mIniFile)
     gDenyZeroPriceMaterialInwardOutwardTypes = Readfromini("DenyZeroPriceMaterialInwardOutwardTypes", mIniFile)
+    gShowTerminalCodeForInwardOutwardTypes = Readfromini("ShowTerminalCodeForInwardOutwardTypes", mIniFile)
 
     gSrvUID = "sa"
     gSrvPwd = ""

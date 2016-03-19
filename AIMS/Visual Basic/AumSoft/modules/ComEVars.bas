@@ -54,6 +54,7 @@ Global gTktFmt As Integer
 Global gGujaratiFontName As String
 Global SQL As String
 Global gDenyZeroPriceMaterialInwardOutwardTypes As String
+Global gShowTerminalCodeForInwardOutwardTypes As String
 
 'Global FromWhichForm As Form
 'Global gReportTag As String

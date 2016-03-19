@@ -17,4 +17,11 @@ ALTER TABLE TerminalConfig
 
 GO
 
+ALTER TABLE InvTrn 
+	ADD
+		TerminalCode	int	default(0)
+
+GO
+
 UPDATE TerminalConfig SET ImportBarred = 0
+Update InvTrn SET TerminalCode = 0

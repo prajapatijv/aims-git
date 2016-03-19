@@ -23,7 +23,6 @@ Begin VB.Form frmInvtrn2
    Icon            =   "Invtrn2.frx":0000
    KeyPreview      =   -1  'True
    LinkTopic       =   "Form1"
-   LockControls    =   -1  'True
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
    MinButton       =   0   'False
@@ -78,7 +77,7 @@ Begin VB.Form frmInvtrn2
          EndProperty
          Height          =   285
          Left            =   0
-         TabIndex        =   18
+         TabIndex        =   19
          Top             =   -600
          Width           =   1455
       End
@@ -94,7 +93,7 @@ Begin VB.Form frmInvtrn2
          EndProperty
          Height          =   735
          Left            =   120
-         TabIndex        =   17
+         TabIndex        =   18
          Top             =   330
          Width           =   12015
          Begin CommCtrls.ItxtBox txtVno 
@@ -134,7 +133,7 @@ Begin VB.Form frmInvtrn2
             ForeColor       =   &H00800000&
             Height          =   240
             Left            =   240
-            TabIndex        =   25
+            TabIndex        =   26
             Top             =   300
             Width           =   600
          End
@@ -144,7 +143,7 @@ Begin VB.Form frmInvtrn2
             Caption         =   "Vno*"
             Height          =   240
             Left            =   10200
-            TabIndex        =   9
+            TabIndex        =   10
             Top             =   300
             Width           =   435
          End
@@ -152,7 +151,7 @@ Begin VB.Form frmInvtrn2
       Begin VB.Frame fmeRecDetail 
          Height          =   1215
          Left            =   120
-         TabIndex        =   19
+         TabIndex        =   20
          Top             =   945
          Width           =   12015
          Begin VB.ComboBox cboItemCategory 
@@ -174,7 +173,7 @@ Begin VB.Form frmInvtrn2
          Begin CommCtrls.mskDat mskRec_Dat 
             Height          =   375
             Left            =   10800
-            TabIndex        =   5
+            TabIndex        =   6
             Top             =   720
             Width           =   1095
             _ExtentX        =   1931
@@ -194,7 +193,7 @@ Begin VB.Form frmInvtrn2
          Begin CommCtrls.CtxtBox txtDoc_No 
             Height          =   375
             Left            =   6960
-            TabIndex        =   4
+            TabIndex        =   5
             Top             =   720
             Width           =   2415
             _ExtentX        =   4260
@@ -213,13 +212,32 @@ Begin VB.Form frmInvtrn2
             EndProperty
             AllowNull       =   -1  'True
          End
+         Begin HlpN.HlpNCode hlpTerminalcode 
+            Height          =   375
+            Left            =   6960
+            TabIndex        =   4
+            Top             =   240
+            Width           =   4395
+            _ExtentX        =   7752
+            _ExtentY        =   661
+         End
+         Begin VB.Label lblLocation_id 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "Terminal"
+            Height          =   240
+            Left            =   6000
+            TabIndex        =   28
+            Top             =   240
+            Width           =   795
+         End
          Begin VB.Label Label1 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
             Caption         =   "Item Category"
             Height          =   240
             Left            =   240
-            TabIndex        =   26
+            TabIndex        =   27
             Top             =   780
             Width           =   1245
          End
@@ -229,7 +247,7 @@ Begin VB.Form frmInvtrn2
             Caption         =   "Type"
             Height          =   240
             Left            =   240
-            TabIndex        =   24
+            TabIndex        =   25
             Top             =   300
             Width           =   480
          End
@@ -238,8 +256,8 @@ Begin VB.Form frmInvtrn2
             BackStyle       =   0  'Transparent
             Caption         =   "DocNo"
             Height          =   240
-            Left            =   6120
-            TabIndex        =   10
+            Left            =   6000
+            TabIndex        =   11
             Top             =   780
             Width           =   645
          End
@@ -248,7 +266,7 @@ Begin VB.Form frmInvtrn2
             Caption         =   "Date"
             Height          =   240
             Left            =   10200
-            TabIndex        =   11
+            TabIndex        =   12
             Top             =   780
             Width           =   435
          End
@@ -256,13 +274,13 @@ Begin VB.Form frmInvtrn2
       Begin VB.Frame fmeTotals 
          Height          =   1245
          Left            =   135
-         TabIndex        =   20
+         TabIndex        =   21
          Top             =   8220
          Width           =   12045
          Begin CommCtrls.CtxtBox txtRemarks 
             Height          =   855
             Left            =   1320
-            TabIndex        =   8
+            TabIndex        =   9
             Top             =   195
             Width           =   4695
             _ExtentX        =   8281
@@ -285,7 +303,7 @@ Begin VB.Form frmInvtrn2
          Begin CommCtrls.NTxtBox txtTotRecQty 
             Height          =   375
             Left            =   8640
-            TabIndex        =   14
+            TabIndex        =   15
             TabStop         =   0   'False
             Top             =   195
             Width           =   1695
@@ -306,7 +324,7 @@ Begin VB.Form frmInvtrn2
          Begin CommCtrls.NTxtBox txtItemTot 
             Height          =   375
             Left            =   8640
-            TabIndex        =   16
+            TabIndex        =   17
             TabStop         =   0   'False
             Top             =   675
             Width           =   1695
@@ -328,7 +346,7 @@ Begin VB.Form frmInvtrn2
             Caption         =   "Remarks"
             Height          =   255
             Left            =   240
-            TabIndex        =   12
+            TabIndex        =   13
             Top             =   240
             Width           =   855
          End
@@ -338,7 +356,7 @@ Begin VB.Form frmInvtrn2
             Caption         =   "Total Amount"
             Height          =   240
             Left            =   7320
-            TabIndex        =   15
+            TabIndex        =   16
             Top             =   720
             Width           =   1185
          End
@@ -348,7 +366,7 @@ Begin VB.Form frmInvtrn2
             Caption         =   "Total Qty"
             Height          =   240
             Left            =   7320
-            TabIndex        =   13
+            TabIndex        =   14
             Top             =   240
             Width           =   810
          End
@@ -356,7 +374,7 @@ Begin VB.Form frmInvtrn2
       Begin TabDlg.SSTab SSTabDetail 
          Height          =   5895
          Left            =   120
-         TabIndex        =   6
+         TabIndex        =   7
          Top             =   2280
          Width           =   12045
          _ExtentX        =   21246
@@ -394,13 +412,13 @@ Begin VB.Form frmInvtrn2
             EndProperty
             Height          =   5415
             Left            =   120
-            TabIndex        =   22
+            TabIndex        =   23
             Top             =   360
             Width           =   11895
             Begin MSHierarchicalFlexGridLib.MSHFlexGrid msfDetail 
                Height          =   5115
                Left            =   120
-               TabIndex        =   7
+               TabIndex        =   8
                Top             =   210
                Width           =   11655
                _ExtentX        =   20558
@@ -428,7 +446,7 @@ Begin VB.Form frmInvtrn2
                EndProperty
                Height          =   255
                Left            =   4920
-               TabIndex        =   23
+               TabIndex        =   24
                Top             =   840
                Width           =   975
             End
@@ -438,7 +456,7 @@ Begin VB.Form frmInvtrn2
    Begin HlpN.HlpNCode hlpFind 
       Height          =   375
       Left            =   0
-      TabIndex        =   21
+      TabIndex        =   22
       Top             =   0
       Visible         =   0   'False
       Width           =   4395
@@ -464,6 +482,7 @@ Const dColQty = 2
 Const dColUnit = 3
 Const dColrtl_rpc = 4
 Const dColAmt = 5
+Dim showTerminalCodeForInwardOutwardTypeList() As String
 
 Public Sub EntryAdd()
 On Error GoTo errhndl
@@ -766,6 +785,35 @@ Private Sub cboItemCategory_Click()
 End Sub
 
 
+Private Sub cmbType_Change()
+End Sub
+
+Private Function DoShowTerminalCode() As Boolean
+    
+    Dim iCnt As Integer
+    Dim tranType As Integer
+    tranType = Val(cmbType.ItemData(cmbType.ListIndex))
+
+    For iCnt = 0 To UBound(showTerminalCodeForInwardOutwardTypeList)
+        If tranType = showTerminalCodeForInwardOutwardTypeList(iCnt) Then
+            DoShowTerminalCode = True
+            Exit Function
+        End If
+    Next
+    
+    DoShowTerminalCode = False
+    Exit Function
+End Function
+
+
+Private Sub cmbType_LostFocus()
+    If DoShowTerminalCode Then
+        hlpTerminalcode.Visible = True
+    Else
+        hlpTerminalcode.Visible = False
+    End If
+End Sub
+
 Private Sub Form_Activate()
 On Error GoTo errhndl
     
@@ -791,6 +839,7 @@ MP vbHourglass
     SetMsfDetail msfDetail
     
     zerobarredTypes = Split(gDenyZeroPriceMaterialInwardOutwardTypes, ",")
+    showTerminalCodeForInwardOutwardTypeList = Split(gShowTerminalCodeForInwardOutwardTypes, ",")
 
 MP vbDefault
 Exit Sub
@@ -856,6 +905,17 @@ Private Sub SetTextBoxes()
     FillTypeCombo
     FillCategoryCombo
     
+    With hlpTerminalcode
+        .SetAdoConnStr = gCnnMst
+        .TableName = "TerminalConfig"
+        .FieldList = "code,name,shortname"
+        .CodeField = "code"
+        .NameField = "ShortName"
+        .SqlWhere = " actv_fg = 1"
+        .DefaultSearchCol = 1
+        .SetFontParameters "", gGujaratiFontName, gGujaratiFontName, 2, 12
+    End With
+
     VisibleNoVisibleBtn True
     SetActiveModeNControl mEntryMode
     CenterFrmChild Me
@@ -867,7 +927,7 @@ Private Function Validate() As Boolean
         Dim i As Integer
         With msfDetail
             For i = 0 To .Rows - 1
-                If Val(.TextMatrix(i, dColrtl_rpc)) = 0 Then
+                If Val(.TextMatrix(i, dColQty)) > 0 And Val(.TextMatrix(i, dColrtl_rpc)) = 0 Then
                     Validate = False
                     Exit Function
                 End If
@@ -877,6 +937,9 @@ Private Function Validate() As Boolean
         Validate = True
         Exit Function
     End If
+    
+    Validate = True
+    Exit Function
    
 End Function
 
@@ -933,6 +996,7 @@ MP vbHourglass
     SQL = SQL & ",dtausr "
     
     SQL = SQL & ",Trng_fg"
+    SQL = SQL & ",TerminalCode"
     
     SQL = SQL & " ) Values ("
     
@@ -956,6 +1020,7 @@ MP vbHourglass
     SQL = SQL & "," & AQ(gUser)
     
     SQL = SQL & "," & IsTrainingMode
+    SQL = SQL & "," & Val(hlpTerminalcode.CodeText)
     
     SQL = SQL & ")"
     gCnnMst.Execute SQL
@@ -1068,6 +1133,12 @@ MP vbHourglass
                 Case Else
                     'do nothing
             End Select
+            
+            If Val(hlpTerminalcode.CodeText) > 0 Then
+                hlpTerminalcode.GetNameText Val(hlpTerminalcode.CodeText)
+            Else
+                hlpTerminalcode.NameText = ""
+            End If
         End If
         
         'ReadInvdet rsttmp
