@@ -1,12 +1,13 @@
 VERSION 5.00
 Object = "{0ECD9B60-23AA-11D0-B351-00A0C9055D8E}#6.0#0"; "MSHFLXGD.OCX"
 Object = "{BDC217C8-ED16-11CD-956C-0000C04E4C0A}#1.1#0"; "TABCTL32.OCX"
+Object = "{F9043C88-F6F2-101A-A3C9-08002B2F49FB}#1.2#0"; "comdlg32.ocx"
 Object = "{5B73778E-352B-11D9-91C4-40B155C10000}#7.1#0"; "CommCtrls.ocx"
 Object = "{86144B5E-6628-49BD-BDDD-F6C4F692705D}#1.2#0"; "MyHelp.ocx"
 Begin VB.Form frmInvtrn2 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Material Inward/outward Entry"
-   ClientHeight    =   9555
+   ClientHeight    =   9675
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   12345
@@ -26,17 +27,17 @@ Begin VB.Form frmInvtrn2
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
    MinButton       =   0   'False
-   ScaleHeight     =   9555
+   ScaleHeight     =   9675
    ScaleWidth      =   12345
    ShowInTaskbar   =   0   'False
    Begin TabDlg.SSTab SSTab1 
-      Height          =   9495
+      Height          =   9615
       Left            =   0
       TabIndex        =   0
       Top             =   0
       Width           =   12285
       _ExtentX        =   21669
-      _ExtentY        =   16748
+      _ExtentY        =   16960
       _Version        =   393216
       Style           =   1
       Tabs            =   1
@@ -154,6 +155,21 @@ Begin VB.Form frmInvtrn2
          TabIndex        =   20
          Top             =   945
          Width           =   12015
+         Begin VB.CommandButton cmdFile 
+            Caption         =   "..."
+            Height          =   255
+            Left            =   5280
+            TabIndex        =   29
+            Top             =   840
+            Width           =   375
+         End
+         Begin MSComDlg.CommonDialog filedialogue 
+            Left            =   5160
+            Top             =   240
+            _ExtentX        =   847
+            _ExtentY        =   847
+            _Version        =   393216
+         End
          Begin VB.ComboBox cboItemCategory 
             Height          =   360
             Left            =   1680
@@ -282,8 +298,8 @@ Begin VB.Form frmInvtrn2
             Left            =   1320
             TabIndex        =   9
             Top             =   195
-            Width           =   4695
-            _ExtentX        =   8281
+            Width           =   5175
+            _ExtentX        =   9128
             _ExtentY        =   1508
             BackColor       =   14482428
             Alignment       =   0
@@ -483,6 +499,7 @@ Const dColUnit = 3
 Const dColrtl_rpc = 4
 Const dColAmt = 5
 Dim showTerminalCodeForInwardOutwardTypeList() As String
+Dim documentPath As String
 
 Public Sub EntryAdd()
 On Error GoTo errhndl
@@ -503,6 +520,7 @@ MP vbHourglass
     SetFocusTo cmbType
         
     mskRec_Dat.Text = Date
+    documentPath = ""
     
 MP vbDefault
 Exit Sub
@@ -785,13 +803,15 @@ Private Sub cboItemCategory_Click()
 End Sub
 
 
-Private Sub cmbType_Change()
-End Sub
-
 Private Function DoShowTerminalCode() As Boolean
     
     Dim iCnt As Integer
     Dim tranType As Integer
+    
+    If cmbType.ListIndex = -1 Then
+        Exit Function
+    End If
+    
     tranType = Val(cmbType.ItemData(cmbType.ListIndex))
 
     For iCnt = 0 To UBound(showTerminalCodeForInwardOutwardTypeList)
@@ -812,6 +832,35 @@ Private Sub cmbType_LostFocus()
     Else
         hlpTerminalcode.Visible = False
     End If
+End Sub
+
+Private Sub cmdFile_Click()
+    'Dim bytData() As Byte
+    documentPath = ""
+    On Error GoTo errhndl
+    
+    With filedialogue
+        .Filter = "*.jpeg,*.jpg,*.png,*.pdf,*.doc,*.xls"
+        .DialogTitle = "Select Document"
+        .ShowOpen
+        
+        If .FileTitle <> "" Then
+            documentPath = .fileName
+            
+        End If
+        
+    End With
+    
+Exit Sub
+errhndl:
+
+    If Err.Number = 32755 Then
+    Else
+        ErrMsg
+    End If
+    
+    Resume Next
+    
 End Sub
 
 Private Sub Form_Activate()
@@ -964,9 +1013,12 @@ Private Sub SaveInTmp()
 On Error GoTo errhndl
 Dim SQL As String
 Dim i As Integer
+Dim fileName As String
 MP vbHourglass
     
     gCnnMst.BeginTrans
+    
+     filenanme = MoveDocument(documentPath)
     
     If LCase(lblMode.Caption) = "edit" Then
         SQL = "Delete from Invtrn "
@@ -1065,6 +1117,12 @@ MP vbHourglass
         Next
     End With
     
+    
+    '''Save file
+    'If Trim(documentPath) <> "" Then
+    '    SaveDocument documentPath
+    'End If
+    
     gCnnMst.CommitTrans
 
     MsgBox "Entry No : " & txtVno.Text & " Saved ", vbInformation
@@ -1076,6 +1134,48 @@ errhndl:
     ErrMsg
     
 End Sub
+
+Private Function MoveDocument(documentPath As String) As String
+    Dim fileName As String
+    
+    Dim fso As FileSystemObject
+    Set fso = New FileSystemObject
+    
+    If Not fso.FolderExists(gDocumentPath) Then
+        fso.CreateFolder (gDocumentPath)
+    End If
+    
+    If fso.FileExists(documentPath) Then
+        If fso.FileExists(documentPath) Then
+            Call fso.DeleteFile(documentPath, True)
+        End If
+        fileName = txtVno.Text & "." & fso.GetExtensionName(documentPath)
+        fso.MoveFile documentPath, gDocumentPath & "\" & fileName
+        'mImportMdbPath & "Done\" & s_FileName
+        
+        MoveDocument = fileName
+    End If
+    
+    Set fso = Nothing
+
+    Exit Function
+End Function
+
+'Private Sub SaveDocument(documentPath As String)
+'    Dim bytData() As Byte
+'    On Error GoTo errhndl
+'
+'        If documentPath <> "" Then
+'            Open documentPath For Binary As #1
+'
+'            ReDim bytData(FileLen(documentPath))
+'        End If
+'
+'        Get #1, , bytData
+'        Close #1
+'
+'    End With
+'End Sub
 
 Private Sub Nevigate(s_Mode As Nevigate)
 On Error GoTo errhndl

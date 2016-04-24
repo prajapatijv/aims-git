@@ -42,6 +42,9 @@ Dim IsIniFound As Boolean
     gDenyZeroPriceMaterialInwardOutwardTypes = Readfromini("DenyZeroPriceMaterialInwardOutwardTypes", mIniFile)
     gShowTerminalCodeForInwardOutwardTypes = Readfromini("ShowTerminalCodeForInwardOutwardTypes", mIniFile)
 
+    gDocumentPath = Readfromini("DocumentPath", mIniFile)
+    gDocumentTypesFilter = Readfromini("DocumentTypesFilter", mIniFile)
+    
     gSrvUID = "sa"
     gSrvPwd = ""
     gMdbPwd = ""

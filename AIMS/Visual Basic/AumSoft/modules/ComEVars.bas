@@ -58,6 +58,8 @@ Global gShowTerminalCodeForInwardOutwardTypes As String
 
 'Global FromWhichForm As Form
 'Global gReportTag As String
+Global gDocumentPath As String
+Global gDocumentTypesFilter As String
 
 Public Enum BackEnd_Type
     BE_Access = 0

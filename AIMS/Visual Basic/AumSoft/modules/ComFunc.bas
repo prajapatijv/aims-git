@@ -639,9 +639,13 @@ Dim strFldname As String
     ValidateControl = True
     
     For Each mCtrl In Screen.ActiveForm.Controls
-        If LCase(TypeName(mCtrl)) = "label" And mCtrl.Visible Then
-            If InStr(1, mCtrl.Caption, "*", vbTextCompare) > 0 Then
-                mStr = Mid(mCtrl.Name, 4) & "/" & mStr
+        If LCase(TypeName(mCtrl)) = "commondialog" Then
+            'Do nothing
+        Else
+            If LCase(TypeName(mCtrl)) = "label" And mCtrl.Visible Then
+                If InStr(1, mCtrl.Caption, "*", vbTextCompare) > 0 Then
+                    mStr = Mid(mCtrl.Name, 4) & "/" & mStr
+                End If
             End If
         End If
     Next
