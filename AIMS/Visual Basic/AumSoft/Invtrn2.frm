@@ -883,6 +883,22 @@ errhndl:
     
 End Sub
 
+Private Sub cmdViewDocument_Click()
+On Error GoTo errhndl
+    
+    MP vbHourglass
+    
+    OpenDocument lblFileName.Caption
+    
+    MP vbDefault
+    
+Exit Sub
+errhndl:
+    ErrMsg
+    Resume Next
+
+End Sub
+
 Private Sub Form_Activate()
 On Error GoTo errhndl
     
@@ -1186,17 +1202,15 @@ Private Function CopyDocument(documentPath As String) As String
     Exit Function
 End Function
 
-Private Sub OpenDocument()
-    Dim fileName As String
-    
+Private Sub OpenDocument(fileName)
     Dim fso As FileSystemObject
     Set fso = New FileSystemObject
     
     Dim newFilePath As String
-    newFilePath = gDocumentPath & "\" & txtVno.Text
+    newFilePath = gDocumentPath & "\" & fileName
     
     If fso.FileExists(newFilePath) Then
-        
+        Shell32Bit newFilePath
     End If
     
     Set fso = Nothing
