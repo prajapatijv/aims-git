@@ -644,7 +644,7 @@ Dim strFldname As String
         Else
             If LCase(TypeName(mCtrl)) = "label" And mCtrl.Visible Then
                 If InStr(1, mCtrl.Caption, "*", vbTextCompare) > 0 Then
-                    mStr = Mid(mCtrl.Name, 4) & "/" & mStr
+                      mStr = Mid(mCtrl.Name, 4) & "/" & mStr
                 End If
             End If
         End If

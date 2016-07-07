@@ -1018,8 +1018,6 @@ MP vbHourglass
     
     gCnnMst.BeginTrans
     
-     filenanme = MoveDocument(documentPath)
-    
     If LCase(lblMode.Caption) = "edit" Then
         SQL = "Delete from Invtrn "
         SQL = SQL & " Where 1=1"
@@ -1118,14 +1116,14 @@ MP vbHourglass
     End With
     
     
-    '''Save file
-    'If Trim(documentPath) <> "" Then
-    '    SaveDocument documentPath
-    'End If
-    
     gCnnMst.CommitTrans
 
     MsgBox "Entry No : " & txtVno.Text & " Saved ", vbInformation
+    
+    '''Copy file to program location
+    If Trim(documentPath) <> "" Then
+        CopyDocument (documentPath)
+    End If
     
 MP vbDefault
 Exit Sub
@@ -1135,7 +1133,7 @@ errhndl:
     
 End Sub
 
-Private Function MoveDocument(documentPath As String) As String
+Private Sub CopyDocument(documentPath As String)
     Dim fileName As String
     
     Dim fso As FileSystemObject
@@ -1146,20 +1144,20 @@ Private Function MoveDocument(documentPath As String) As String
     End If
     
     If fso.FileExists(documentPath) Then
-        If fso.FileExists(documentPath) Then
-            Call fso.DeleteFile(documentPath, True)
-        End If
+        Dim newFilePath As String
         fileName = txtVno.Text & "." & fso.GetExtensionName(documentPath)
-        fso.MoveFile documentPath, gDocumentPath & "\" & fileName
-        'mImportMdbPath & "Done\" & s_FileName
+        newFilePath = gDocumentPath & "\" & fileName
+        If fso.FileExists(newFilePath) Then
+            Call fso.DeleteFile(newFilePath, True)
+        End If
         
-        MoveDocument = fileName
+        fso.CopyFile documentPath, newFilePath
     End If
     
     Set fso = Nothing
 
-    Exit Function
-End Function
+    Exit Sub
+End Sub
 
 'Private Sub SaveDocument(documentPath As String)
 '    Dim bytData() As Byte
