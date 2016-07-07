@@ -860,13 +860,12 @@ Private Sub cmdFile_Click()
     On Error GoTo errhndl
     
     With filedialogue
-        .Filter = "*.jpeg,*.jpg,*.png,*.pdf,*.doc,*.xls"
+        .Filter = gDocumentTypesFilter
         .DialogTitle = "Select Document"
         .ShowOpen
         
         If .FileTitle <> "" Then
             documentPath = .fileName
-            
         End If
         
     End With
@@ -1210,13 +1209,32 @@ Private Sub OpenDocument(fileName)
     newFilePath = gDocumentPath & "\" & fileName
     
     If fso.FileExists(newFilePath) Then
-        Shell32Bit newFilePath
+        Dim applicationName As String
+        applicationName = getApplicationName(fso.GetExtensionName(newFilePath))
+        
+        Shell32Bit applicationName & " " & newFilePath
     End If
     
     Set fso = Nothing
 
     Exit Sub
 End Sub
+
+Private Function getApplicationName(fileExt) As String
+    Dim iCnt As Integer
+    Dim settings() As String
+    settings = Split(gDocumentOpenIn, ",")
+    
+    For iCnt = 0 To UBound(settings) - 1
+        Dim item() As String
+        item = Split(settings(iCnt), "-")
+        
+        If Trim$(item(0)) = fileExt Then
+            getApplicationName = item(1)
+            Exit For
+        End If
+    Next
+End Function
 
 
 'Private Sub SaveDocument(documentPath As String)
@@ -1299,6 +1317,7 @@ MP vbHourglass
             End If
             
             lblFileName.Caption = IfNullThen(rsttmp.Fields("FileName"), "")
+            cmdViewDocument.Enabled = Len(Trim(lblFileName.Caption)) > 0
         End If
         
         'ReadInvdet rsttmp

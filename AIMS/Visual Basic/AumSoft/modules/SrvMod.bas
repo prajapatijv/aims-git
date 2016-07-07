@@ -44,6 +44,7 @@ Dim IsIniFound As Boolean
 
     gDocumentPath = Readfromini("DocumentPath", mIniFile)
     gDocumentTypesFilter = Readfromini("DocumentTypesFilter", mIniFile)
+    gDocumentOpenIn = Readfromini("DocumentOpenIn", mIniFile)
     
     gSrvUID = "sa"
     gSrvPwd = ""
