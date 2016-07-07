@@ -7,7 +7,7 @@ Object = "{86144B5E-6628-49BD-BDDD-F6C4F692705D}#1.2#0"; "MyHelp.ocx"
 Begin VB.Form frmInvtrn2 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Material Inward/outward Entry"
-   ClientHeight    =   9675
+   ClientHeight    =   10170
    ClientLeft      =   45
    ClientTop       =   330
    ClientWidth     =   12345
@@ -27,17 +27,17 @@ Begin VB.Form frmInvtrn2
    MaxButton       =   0   'False
    MDIChild        =   -1  'True
    MinButton       =   0   'False
-   ScaleHeight     =   9675
+   ScaleHeight     =   10170
    ScaleWidth      =   12345
    ShowInTaskbar   =   0   'False
    Begin TabDlg.SSTab SSTab1 
-      Height          =   9615
+      Height          =   10095
       Left            =   0
       TabIndex        =   0
       Top             =   0
       Width           =   12285
       _ExtentX        =   21669
-      _ExtentY        =   16960
+      _ExtentY        =   17806
       _Version        =   393216
       Style           =   1
       Tabs            =   1
@@ -150,18 +150,28 @@ Begin VB.Form frmInvtrn2
          End
       End
       Begin VB.Frame fmeRecDetail 
-         Height          =   1215
+         Height          =   1695
          Left            =   120
          TabIndex        =   20
          Top             =   945
          Width           =   12015
+         Begin VB.CommandButton cmdViewDocument 
+            Caption         =   "View document"
+            Height          =   375
+            Left            =   3720
+            TabIndex        =   30
+            TabStop         =   0   'False
+            Top             =   1200
+            Width           =   1935
+         End
          Begin VB.CommandButton cmdFile 
-            Caption         =   "..."
-            Height          =   255
-            Left            =   5280
+            Caption         =   "Upload document"
+            Height          =   375
+            Left            =   1680
             TabIndex        =   29
-            Top             =   840
-            Width           =   375
+            TabStop         =   0   'False
+            Top             =   1200
+            Width           =   1935
          End
          Begin MSComDlg.CommonDialog filedialogue 
             Left            =   5160
@@ -237,6 +247,16 @@ Begin VB.Form frmInvtrn2
             _ExtentX        =   7752
             _ExtentY        =   661
          End
+         Begin VB.Label lblFileName 
+            AutoSize        =   -1  'True
+            BackStyle       =   0  'Transparent
+            Caption         =   "File Name"
+            Height          =   240
+            Left            =   240
+            TabIndex        =   31
+            Top             =   1200
+            Width           =   930
+         End
          Begin VB.Label lblLocation_id 
             AutoSize        =   -1  'True
             BackStyle       =   0  'Transparent
@@ -291,7 +311,7 @@ Begin VB.Form frmInvtrn2
          Height          =   1245
          Left            =   135
          TabIndex        =   21
-         Top             =   8220
+         Top             =   8700
          Width           =   12045
          Begin CommCtrls.CtxtBox txtRemarks 
             Height          =   855
@@ -391,7 +411,7 @@ Begin VB.Form frmInvtrn2
          Height          =   5895
          Left            =   120
          TabIndex        =   7
-         Top             =   2280
+         Top             =   2760
          Width           =   12045
          _ExtentX        =   21246
          _ExtentY        =   10398
@@ -1016,6 +1036,11 @@ Dim i As Integer
 Dim fileName As String
 MP vbHourglass
     
+    '''Copy file to program location
+    If Trim(documentPath) <> "" Then
+        fileName = CopyDocument(documentPath)
+    End If
+    
     gCnnMst.BeginTrans
     
     If LCase(lblMode.Caption) = "edit" Then
@@ -1047,6 +1072,7 @@ MP vbHourglass
     
     SQL = SQL & ",Trng_fg"
     SQL = SQL & ",TerminalCode"
+    SQL = SQL & ",[FileName]"
     
     SQL = SQL & " ) Values ("
     
@@ -1071,6 +1097,7 @@ MP vbHourglass
     
     SQL = SQL & "," & IsTrainingMode
     SQL = SQL & "," & Val(hlpTerminalcode.CodeText)
+    SQL = SQL & "," & AQ(fileName)
     
     SQL = SQL & ")"
     gCnnMst.Execute SQL
@@ -1120,11 +1147,6 @@ MP vbHourglass
 
     MsgBox "Entry No : " & txtVno.Text & " Saved ", vbInformation
     
-    '''Copy file to program location
-    If Trim(documentPath) <> "" Then
-        CopyDocument (documentPath)
-    End If
-    
 MP vbDefault
 Exit Sub
 errhndl:
@@ -1133,7 +1155,7 @@ errhndl:
     
 End Sub
 
-Private Sub CopyDocument(documentPath As String)
+Private Function CopyDocument(documentPath As String) As String
     Dim fileName As String
     
     Dim fso As FileSystemObject
@@ -1145,19 +1167,43 @@ Private Sub CopyDocument(documentPath As String)
     
     If fso.FileExists(documentPath) Then
         Dim newFilePath As String
+        'Dim renameFileName As String
         fileName = txtVno.Text & "." & fso.GetExtensionName(documentPath)
+        'renameFileName = txtVno.Text & "." & fso.GetExtensionName(documentPath) & "_1"
+        
         newFilePath = gDocumentPath & "\" & fileName
         If fso.FileExists(newFilePath) Then
-            Call fso.DeleteFile(newFilePath, True)
+            'Call fso.MoveFile(newFilePath, gDocumentPath & "\" & fileName & "\" & renameFileName)
         End If
         
-        fso.CopyFile documentPath, newFilePath
+        fso.CopyFile documentPath, newFilePath, True
+        
+        CopyDocument = fileName
+    End If
+    
+    Set fso = Nothing
+
+    Exit Function
+End Function
+
+Private Sub OpenDocument()
+    Dim fileName As String
+    
+    Dim fso As FileSystemObject
+    Set fso = New FileSystemObject
+    
+    Dim newFilePath As String
+    newFilePath = gDocumentPath & "\" & txtVno.Text
+    
+    If fso.FileExists(newFilePath) Then
+        
     End If
     
     Set fso = Nothing
 
     Exit Sub
 End Sub
+
 
 'Private Sub SaveDocument(documentPath As String)
 '    Dim bytData() As Byte
@@ -1237,6 +1283,8 @@ MP vbHourglass
             Else
                 hlpTerminalcode.NameText = ""
             End If
+            
+            lblFileName.Caption = IfNullThen(rsttmp.Fields("FileName"), "")
         End If
         
         'ReadInvdet rsttmp

@@ -23,5 +23,11 @@ ALTER TABLE InvTrn
 
 GO
 
+ALTER TABLE InvTrn 
+	ADD
+		[FileName]	varchar(40)	null
+
+GO
+
 UPDATE TerminalConfig SET ImportBarred = 0
 Update InvTrn SET TerminalCode = 0
