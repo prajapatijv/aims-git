@@ -31,3 +31,4 @@ GO
 
 UPDATE TerminalConfig SET ImportBarred = 0
 Update InvTrn SET TerminalCode = 0
+
